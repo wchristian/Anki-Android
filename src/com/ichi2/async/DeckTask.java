@@ -806,7 +806,7 @@ public class DeckTask extends BaseAsyncTask<DeckTask.TaskData, DeckTask.TaskData
 
     private TaskData doInBackgroundDeleteBackups() {
         Log.i(AnkiDroidApp.TAG, "doInBackgroundDeleteBackups");
-        return null;// ew TaskData(BackupManager.deleteAllBackups());
+        return null;
     }
 
 
@@ -1159,7 +1159,6 @@ public class DeckTask extends BaseAsyncTask<DeckTask.TaskData, DeckTask.TaskData
                 note.values()[1] = (i < len) ? answers[i] : sampleAnswers[i - len];
                 col.addNote(note);
             }
-            // deck.setSessionTimeLimit(0);
             if (col.getSched().cardCount("(" + did + ")") == 0) {
                 // error, delete deck
                 col.getDecks().rem(did, true);
@@ -1658,12 +1657,6 @@ public class DeckTask extends BaseAsyncTask<DeckTask.TaskData, DeckTask.TaskData
         public int getType() {
             return mType;
         }
-
-
-        //
-        // public LinkedHashMap<Long, CardModel> getCardModels() {
-        // return mCardModels;
-        // }
 
         public int[] getIntList() {
             return mIntList;

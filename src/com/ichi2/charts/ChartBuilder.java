@@ -130,7 +130,6 @@ public class ChartBuilder extends Activity {
                 SharedPreferences preferences = AnkiDroidApp.getSharedPrefs(getBaseContext());
                 Editor editor = preferences.edit();
                 editor.putBoolean("fullScreen", !mFullScreen);
-                // Statistics.sZoom = zoom;
                 editor.commit();
                 finish();
                 Intent intent = new Intent(this, com.ichi2.charts.ChartBuilder.class);
@@ -147,40 +146,6 @@ public class ChartBuilder extends Activity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-    // public void setRenderer(int type, int row) {
-    // Resources res = getResources();
-    // XYSeriesRenderer renderer = new XYSeriesRenderer();
-    // if (type <= 2) {
-    // switch (row) {
-    // case 0:
-    // renderer.setColor(res.getColor(R.color.statistics_due_young_cards));
-    // break;
-    // case 1:
-    // renderer.setColor(res.getColor(R.color.statistics_due_mature_cards));
-    // break;
-    // case 2:
-    // // renderer.setColor(res.getColor(R.color.statistics_due_failed_cards));
-    // break;
-    // }
-    // } else if (type == 3) {
-    // switch (row) {
-    // case 0:
-    // // renderer.setColor(res.getColor(R.color.statistics_reps_new_cards));
-    // break;
-    // case 1:
-    // renderer.setColor(res.getColor(R.color.statistics_reps_young_cards));
-    // break;
-    // case 2:
-    // renderer.setColor(res.getColor(R.color.statistics_reps_mature_cards));
-    // break;
-    // }
-    // } else {
-    // renderer.setColor(res.getColor(R.color.statistics_default));
-    // }
-    // mRenderer.addSeriesRenderer(renderer);
-    // }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -193,8 +193,6 @@ public class CardEditor extends Activity {
     private StyledProgressDialog mProgressDialog;
     private StyledOpenCollectionDialog mOpenCollectionDialog;
 
-    // private String mSourceLanguage;
-    // private String mTargetLanguage;
     private String[] mSourceText;
     private int mSourcePosition = 0;
     private int mTargetPosition = 1;
@@ -220,8 +218,6 @@ public class CardEditor extends Activity {
         public void onProgressUpdate(DeckTask.TaskData... values) {
             int count = values[0].getInt();
             if (mCaller == CALLER_BIGWIDGET_EDIT) {
-                // AnkiDroidWidgetBig.setCard(values[0].getCard());
-                // AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_NOT_SPECIFIED);
                 mChanged = true;
             } else if (count > 0) {
                 mChanged = true;
@@ -373,13 +369,6 @@ public class CardEditor extends Activity {
                 break;
 
             case CALLER_BIGWIDGET_EDIT:
-                // Card widgetCard = AnkiDroidWidgetBig.getCard();
-                // if (widgetCard == null) {
-                // finish();
-                // return;
-                // }
-                // mEditorNote = widgetCard.getFact();
-                // mAddNote = false;
                 break;
 
             case CALLER_BIGWIDGET_ADD:
@@ -536,21 +525,6 @@ public class CardEditor extends Activity {
                         mChanged = true;
                     }
                     closeCardEditor();
-                    // if (mCaller == CALLER_BIGWIDGET_EDIT) {
-                    // // DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_FACT,
-                    // // mSaveFactHandler, new
-                    // // DeckTask.TaskData(Reviewer.UPDATE_CARD_SHOW_QUESTION,
-                    // // mDeck, AnkiDroidWidgetBig.getCard()));
-                    // } else if (!mCardReset) {
-                    // // Only send result to save if something was actually
-                    // // changed
-                    // if (mModified) {
-                    // setResult(RESULT_OK);
-                    // } else {
-                    // setResult(RESULT_CANCELED);
-                    // }
-                    // closeCardEditor();
-                    // }
 
                 }
             }
@@ -579,8 +553,6 @@ public class CardEditor extends Activity {
     private void fetchIntentInformation(Intent intent) {
         Bundle extras = intent.getExtras();
         if (ACTION_CREATE_FLASHCARD.equals(intent.getAction())) {
-            // mSourceLanguage = extras.getString(SOURCE_LANGUAGE);
-            // mTargetLanguage = extras.getString(TARGET_LANGUAGE);
         	mSourceText = new String[2];
             mSourceText[0] = extras.getString(SOURCE_TEXT);
             mSourceText[1] = extras.getString(TARGET_TEXT);
@@ -724,14 +696,6 @@ public class CardEditor extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item;
         Resources res = getResources();
-        // Lookup.initialize(this, mDeck.getDeckPath());
-        // item = menu.add(Menu.NONE, MENU_LOOKUP, Menu.NONE,
-        // Lookup.getSearchStringTitle());
-        // item.setIcon(R.drawable.ic_menu_search);
-        // item.setEnabled(Lookup.isAvailable());
-        // item = menu.add(Menu.NONE, MENU_RESET, Menu.NONE,
-        // res.getString(R.string.card_editor_reset));
-        // item.setIcon(R.drawable.ic_menu_revert);
         if (!mAddNote) {
             item = menu.add(Menu.NONE, MENU_ADD_CARD, Menu.NONE, res.getString(R.string.card_editor_add_card));
             item.setIcon(R.drawable.ic_menu_add);
@@ -755,11 +719,6 @@ public class CardEditor extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // View focus = this.getWindow().getCurrentFocus();
-        // menu.findItem(MENU_LOOKUP).setEnabled(
-        // focus instanceof FieldEditText
-        // && ((TextView) focus).getText().length() > 0
-        // && Lookup.isAvailable());
 
         if (mEditFields == null) {
             return false;
@@ -788,7 +747,6 @@ public class CardEditor extends Activity {
             case MENU_ADD_CARD:
                 Intent intent = new Intent(CardEditor.this, CardEditor.class);
                 intent.putExtra(EXTRA_CALLER, CALLER_CARDEDITOR);
-                // intent.putExtra(EXTRA_DECKPATH, mDeckPath);
                 if (item.getItemId() == MENU_COPY_CARD) {
                     intent.putExtra(EXTRA_CONTENTS, getFieldsText());
                 }
@@ -1099,16 +1057,6 @@ public class CardEditor extends Activity {
                 builder.setPositiveButton(res.getString(R.string.yes), new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // for (long cardId :
-                        // mDeck.getCardsFromFactId(mEditorNote.getId())) {
-                        // mDeck.cardFromId(cardId).resetCard();
-                        // }
-                        // mDeck.reset();
-                        // setResult(Reviewer.RESULT_EDIT_CARD_RESET);
-                        // mCardReset = true;
-                        // Themes.showThemedToast(CardEditor.this,
-                        // getResources().getString(
-                        // R.string.reset_card_dialog_confirmation), true);
                     }
                 });
                 builder.setNegativeButton(res.getString(R.string.no), null);

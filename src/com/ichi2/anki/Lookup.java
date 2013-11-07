@@ -181,20 +181,11 @@ public class Lookup {
 
 
     private static String getLanguage(int questionAnswer) {
-        // if (mCurrentCard == null) {
         return "";
-        // } else {
-        // return MetaDB.getLanguage(mContext, mDeckFilename, Models.getModel(DeckManager.getMainDeck(),
-        // mCurrentCard.getCardModelId(), false).getId(), mCurrentCard.getCardModelId(), questionAnswer);
-        // }
     }
 
 
     private static void storeLanguage(String language, int questionAnswer) {
-        // if (mCurrentCard != null) {
-        // MetaDB.storeLanguage(mContext, mDeckFilename, Models.getModel(DeckManager.getMainDeck(),
-        // mCurrentCard.getCardModelId(), false).getId(), mCurrentCard.getCardModelId(), questionAnswer, language);
-        // }
     }
 
 }

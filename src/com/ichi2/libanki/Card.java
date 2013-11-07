@@ -76,7 +76,6 @@ public class Card implements Cloneable {
 
     private double mTimerStarted;
     private double mTimerStopped;
-    // private double mFuzz = 0;
 
     // Leech flags, not read from database, only set to true during the actual
     // suspension
@@ -383,101 +382,9 @@ public class Card implements Cloneable {
      */
     public String[] getComparedFieldAnswer() {
         String[] returnArray = new String[2];
-        // CardModel myCardModel = this.getCardModel();
-        // String typeAnswer = myCardModel.getTypeAnswer();
-        // if (null == typeAnswer || 0 == typeAnswer.trim().length()) {
-        // returnArray[0] = null;
-        // }
-        // Model myModel = Model.getModel(mDeck, myCardModel.getModelId(),
-        // true);
-        // TreeMap<Long, FieldModel> fieldModels = myModel.getFieldModels();
-        // FieldModel myFieldModel = null;
-        // long myFieldModelId = 0l;
-        // for (TreeMap.Entry<Long, FieldModel> entry : fieldModels.entrySet())
-        // {
-        // myFieldModel = entry.getValue();
-        // myFieldModelId = myFieldModel.match(myCardModel.getModelId(),
-        // typeAnswer);
-        // if (myFieldModelId != 0l) {
-        // break;
-        // }
-        // }
-        // returnArray[0] = com.ichi2.anki.Field.fieldValuefromDb(this.mDeck,
-        // this.mFactId, myFieldModelId);
-        // returnArray[1] = "fm" + Long.toHexString(myFieldModelId);
         return returnArray;
     }
 
-
-    //
-    // /**
-    // // * Questions and answers
-    // // */
-    // public void rebuildQA(Deck deck) {
-    // rebuildQA(deck, true);
-    // }
-    // public void rebuildQA(Deck deck, boolean media) {
-    // // Format qa
-    // if (mFact != null && mCardModel != null) {
-    // HashMap<String, String> qa = CardModel.formatQA(mFact, mCardModel,
-    // _splitTags());
-    //
-    // if (media) {
-    // // Find old media references
-    // HashMap<String, Integer> files = new HashMap<String, Integer>();
-    // ArrayList<String> filesFromQA = Media.mediaFiles(mQuestion);
-    // filesFromQA.addAll(Media.mediaFiles(mAnswer));
-    // for (String f : filesFromQA) {
-    // if (files.containsKey(f)) {
-    // files.put(f, files.get(f) - 1);
-    // } else {
-    // files.put(f, -1);
-    // }
-    // }
-    // // Update q/a
-    // mQuestion = qa.get("question");
-    // mAnswer = qa.get("answer");
-    // // Determine media delta
-    // filesFromQA = Media.mediaFiles(mQuestion);
-    // filesFromQA.addAll(Media.mediaFiles(mAnswer));
-    // for (String f : filesFromQA) {
-    // if (files.containsKey(f)) {
-    // files.put(f, files.get(f) + 1);
-    // } else {
-    // files.put(f, 1);
-    // }
-    // }
-    // // Update media counts if we're attached to deck
-    // for (Entry<String, Integer> entry : files.entrySet()) {
-    // Media.updateMediaCount(deck, entry.getKey(), entry.getValue());
-    // }
-    // } else {
-    // // Update q/a
-    // mQuestion = qa.get("question");
-    // mAnswer = qa.get("answer");
-    // }
-    // setModified();
-    // }
-    // }
-    //
-    //
-    //
-    //
-    // public double getFuzz() {
-    // if (mFuzz == 0) {
-    // genFuzz();
-    // }
-    // return mFuzz;
-    // }
-    //
-    // public void genFuzz() {
-    // // Random rand = new Random();
-    // // mFuzz = 0.95 + (0.1 * rand.nextDouble());
-    // mFuzz = (double) Math.random();
-    // }
-    //
-    //
-    //
 
     public long getId() {
         return mId;

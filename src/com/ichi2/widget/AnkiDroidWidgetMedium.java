@@ -175,7 +175,6 @@ public class AnkiDroidWidgetMedium extends AppWidgetProvider {
         private RemoteViews buildUpdate(Context context, boolean updateDueDecksNow) {
             Log.i(AnkiDroidApp.TAG, "MediumWidget: buildUpdate");
 
-            // Resources res = context.getResources();
             RemoteViews updateViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
             // Add a click listener to open Anki from the icon.

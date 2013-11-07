@@ -146,51 +146,16 @@ public class Themes {
         setFont(view);
         switch (caller) {
             case CALLER_STUDYOPTIONS:
-                // ((View)
-                // view.findViewById(R.id.studyoptions_progressbar1_border)).setBackgroundResource(mProgressbarsFrameColor);
-                // ((View)
-                // view.findViewById(R.id.studyoptions_progressbar2_border)).setBackgroundResource(mProgressbarsFrameColor);
-                // ((View)
-                // view.findViewById(R.id.studyoptions_global_limit_bars)).setBackgroundResource(mProgressbarsFrameColor);
-                // ((View)
-                // view.findViewById(R.id.studyoptions_progressbar4_border)).setBackgroundResource(mProgressbarsFrameColor);
-                //
-                // ((View)
-                // view.findViewById(R.id.studyoptions_bars_max)).setBackgroundResource(mProgressbarsBackgroundColor);
-                // ((View)
-                // view.findViewById(R.id.studyoptions_progressbar2_content)).setBackgroundResource(mProgressbarsBackgroundColor);
-                // ((View)
-                // view.findViewById(R.id.studyoptions_global_limit_bars_content)).setBackgroundResource(mProgressbarsBackgroundColor);
-                // ((View)
-                // view.findViewById(R.id.studyoptions_progressbar4_content)).setBackgroundResource(mProgressbarsBackgroundColor);
-                //
-                // ((View)
-                // view.findViewById(R.id.studyoptions_global_mat_limit_bar)).setBackgroundResource(mProgressbarsMatureColor);
-                // ((View)
-                // view.findViewById(R.id.studyoptions_global_mat_bar)).setBackgroundResource(mProgressbarsMatureColor);
-                //
-                // ((View)
-                // view.findViewById(R.id.studyoptions_global_limit_bar)).setBackgroundResource(mProgressbarsYoungColor);
-                // ((View)
-                // view.findViewById(R.id.studyoptions_global_bar)).setBackgroundResource(mProgressbarsYoungColor);
 
                 if (mCurrentTheme == THEME_WHITE) {
                     setMargins(view.findViewById(R.id.studyoptions_deck_name), LayoutParams.WRAP_CONTENT,
                             LayoutParams.WRAP_CONTENT, 0, 6f, 0, 2f);
-                    // setMargins(view.findViewById(R.id.studyoptions_statistic_field), LayoutParams.WRAP_CONTENT,
-                    // LayoutParams.WRAP_CONTENT, 0, 2f, 0, 12f);
                     ((View) view.findViewById(R.id.studyoptions_deckinformation))
                             .setBackgroundResource(R.drawable.white_textview);
-                    // ((View)
-                    // view.findViewById(R.id.studyoptions_statistic_field)).setBackgroundResource(R.color.transparent);
                     ((View) view.findViewById(R.id.studyoptions_deck_name)).setVisibility(View.VISIBLE);
-                    // ((View)
-                    // view.findViewById(R.id.studyoptions_deckinformation)).setBackgroundResource(mTextViewStyle);
                     ((View) view.findViewById(R.id.studyoptions_main))
                             .setBackgroundResource(R.drawable.white_wallpaper);
                 } else {
-                    // ((View)
-                    // view.findViewById(R.id.studyoptions_statistic_field)).setBackgroundResource(mTextViewStyle);
                     ((View) view.findViewById(R.id.studyoptions_main)).setBackgroundResource(mWallpaper);
                 }
                 break;
@@ -214,8 +179,6 @@ public class Themes {
                         lv.setDividerHeight(0);
                         lv.setBackgroundResource(R.drawable.white_deckpicker_lv_background);
                         view.setBackgroundResource(mWallpaper);
-                        // lv.setDivider(mContext.getResources().getDrawable(R.drawable.white_listdivider));
-                        // setMargins(view, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 4f, 4f, 4f, 4f);
                         break;
                     default:
                         break;
@@ -270,11 +233,6 @@ public class Themes {
                 break;
 
             case CALLER_DECKPICKER_DECK:
-                // if (view.getId() == R.id.deckpicker_bar_mat) {
-                // // view.setBackgroundResource(mProgressbarsFrameColor);
-                // } else if (view.getId() == R.id.deckpicker_bar_all) {
-                // // view.setBackgroundResource(mProgressbarsDeckpickerYoungColor);
-                // } else
                 if (view.getId() == R.id.deckpicker_deck) {
                     view.setBackgroundResource(mDeckpickerItemBorder);
                 }
@@ -309,11 +267,6 @@ public class Themes {
 
                         setMargins(view.findViewById(R.id.main_layout), LayoutParams.FILL_PARENT,
                                 LayoutParams.FILL_PARENT, 4f, 0, 4f, 4f);
-
-                        // ((View)view.findViewById(R.id.nextTime1)).setBackgroundResource(R.drawable.white_next_time_separator);
-                        // ((View)view.findViewById(R.id.nextTime2)).setBackgroundResource(R.drawable.white_next_time_separator);
-                        // ((View)view.findViewById(R.id.nextTime3)).setBackgroundResource(R.drawable.white_next_time_separator);
-                        // ((View)view.findViewById(R.id.nextTime4)).setBackgroundResource(R.drawable.white_next_time_separator);
                         break;
                 }
                 ((View) view.findViewById(R.id.session_progress)).setBackgroundResource(mReviewerProgressbar);
@@ -326,8 +279,6 @@ public class Themes {
 
             case CALLER_CARD_EDITOR:
                 view.findViewById(R.id.CardEditorEditFieldsLayout).setBackgroundResource(mTextViewStyle);
-                // int padding = (int) (4 * mContext.getResources().getDisplayMetrics().density);
-                // view.findViewById(R.id.CardEditorScroll).setPadding(padding, padding, padding, padding);
                 break;
 
             case CALLER_DOWNLOAD_DECK:
@@ -338,9 +289,6 @@ public class Themes {
 
 
     public static void loadTheme() {
-        // SharedPreferences preferences = PrefSettings.getSharedPrefs(mContext);
-        // mCurrentTheme = Integer.parseInt(preferences.getString("theme", "3"));
-
         // set theme always to "white" until theming is properly reimplemented
         mCurrentTheme = 3;
 

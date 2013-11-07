@@ -82,10 +82,6 @@ public class MultimediaCardEditorActivity extends Activity {
     public static final String EXTRA_WHOLE_NOTE = "multim.card.ed.extra.whole.note";
     public static final String EXTRA_CARD_ID = "CARD_ID";
 
-    // private static final String ACTION_CREATE_FLASHCARD =
-    // "org.openintents.action.CREATE_FLASHCARD";
-    // private static final String ACTION_CREATE_FLASHCARD_SEND = "android.intent.action.SEND";
-
     private static final int DIALOG_MODEL_SELECT = 1;
     private static final int DIALOG_DECK_SELECT = 2;
 
@@ -292,11 +288,6 @@ public class MultimediaCardEditorActivity extends Activity {
             case IMAGE:
 
                 ImageView imgView = new ImageView(this);
-                //
-                // BitmapFactory.Options options = new BitmapFactory.Options();
-                // options.inSampleSize = 2;
-                // Bitmap bm = BitmapFactory.decodeFile(myJpgPath, options);
-                // jpgView.setImageBitmap(bm);
 
                 LinearLayout.LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
@@ -358,12 +349,6 @@ public class MultimediaCardEditorActivity extends Activity {
         return true;
     }
 
-
-    // Temporary implemented
-    // private IMultimediaEditableNote getMockNote()
-    // {
-    // return MockNoteFactory.makeNote();
-    // }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

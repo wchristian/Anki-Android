@@ -130,9 +130,6 @@ public class StudyOptionsFragment extends Fragment {
     private View mStudyOptionsView;
     private Button mButtonStart;
     private Button mFragmentedCram;
-//    private Button mButtonUp;
-//    private Button mButtonDown;
-//    private ToggleButton mToggleLimitToggle;
     private TextView mTextDeckName;
     private TextView mTextDeckDescription;
     private TextView mTextTodayNew;
@@ -153,8 +150,6 @@ public class StudyOptionsFragment extends Fragment {
      * UI elements for "Congrats" view
      */
     private View mCongratsView;
-//    private View mLearnMoreView;
-//    private View mReviewEarlyView;
     private TextView mTextCongratsMessage;
     private Button mButtonCongratsUndo;
     private Button mButtonCongratsUnbury;
@@ -193,39 +188,10 @@ public class StudyOptionsFragment extends Fragment {
         @Override
         public void onClick(View v) {
         	Collection col = AnkiDroidApp.getCol();
-//            long timeLimit = 0;
             switch (v.getId()) {
                 case R.id.studyoptions_start:
                     openReviewer();
                     return;
-//                case R.id.studyoptions_limitup:
-//                    timeLimit = (mCol.getTimeLimit() / 60);
-//                    mCol.setTimeLimit((timeLimit + 1) * 60);
-//                    mToggleLimitToggle.setChecked(true);
-//                    mToggleLimitToggle.setText(String.valueOf(timeLimit + 1));
-//                    return;
-//                case R.id.studyoptions_limitdown:
-//                    timeLimit = (mCol.getTimeLimit() / 60);
-//                    if (timeLimit > 1) {
-//                        mCol.setTimeLimit((timeLimit - 1) * 60);
-//                        mToggleLimitToggle.setChecked(true);
-//                        mToggleLimitToggle.setText(String.valueOf(timeLimit - 1));
-//                    } else if (timeLimit == 1) {
-//                        mCol.setTimeLimit(0);
-//                        mToggleLimitToggle.setChecked(false);
-//                    }
-//                    return;
-//                case R.id.studyoptions_limittoggle:
-//                    timeLimit = (mCol.getTimeLimit() / 60);
-//                    if (timeLimit > 0) {
-//                        mToggleLimitToggle.setChecked(false);
-//                        mCol.setTimeLimit(0);
-//                    } else {
-//                        mToggleLimitToggle.setChecked(true);
-//                        mToggleLimitToggle.setText("1");
-//                        mCol.setTimeLimit(60);
-//                    }
-//                    return;
                 case R.id.studyoptions_congrats_undo:
                     if (AnkiDroidApp.colIsOpen()) {
                         col.undo();
@@ -289,7 +255,6 @@ public class StudyOptionsFragment extends Fragment {
                             cramDeckName = "Cram " + n;
                         }
                         mDialogEditText.setText(cramDeckName);
-                        // mDialogEditText.setFilters(new InputFilter[] { mDeckNameFilter });
                         builder.setView(mDialogEditText, false, false);
                         builder.setPositiveButton(res.getString(R.string.create), new DialogInterface.OnClickListener() {
                             @Override
@@ -368,13 +333,6 @@ public class StudyOptionsFragment extends Fragment {
             return null;
         }
 
-        // ScrollView scroller = new ScrollView(getActivity());
-        // TextView text = new TextView(getActivity());
-        // int padding = (int)TypedValue.applyDimension(
-        // TypedValue.COMPLEX_UNIT_DIP,
-        // 4, getActivity().getResources().getDisplayMetrics());
-        // text.setPadding(padding, padding, padding, padding);
-        // scroller.addView();
         return createView(inflater, savedInstanceState);
     }
 
@@ -392,11 +350,6 @@ public class StudyOptionsFragment extends Fragment {
             reloadCollection();
             return null;
         }
-
-//        Intent intent = getActivity().getIntent();
-//        if (intent != null && intent.hasExtra(DeckPicker.EXTRA_DECK_ID)) {
-//            mCol.getDecks().select(intent.getLongExtra(DeckPicker.EXTRA_DECK_ID, 1));
-//        }
 
         initAllContentViews(inflater);
 
@@ -445,10 +398,8 @@ public class StudyOptionsFragment extends Fragment {
         CharSequence newTotal = mTextNewTotal.getText();
         CharSequence total = mTextTotal.getText();
         CharSequence eta = mTextETA.getText();
-//        long timelimit = mCol.getTimeLimit() / 60;
         super.onConfigurationChanged(newConfig);
         mDontSaveOnStop = false;
-//        initAllContentViews();
         if (mCurrentContentView == CONTENT_CONGRATS) {
             setFragmentContentView(mCongratsView);
         }
@@ -464,10 +415,6 @@ public class StudyOptionsFragment extends Fragment {
         mTextTotal.setText(total);
         mTextETA.setText(eta);
 
-//        mToggleLimitToggle.setChecked(timelimit > 0 ? true : false);
-//        if (timelimit > 0) {
-//            mToggleLimitToggle.setText(String.valueOf(timelimit));
-//        }
         updateStatisticBars();
     }
 
@@ -476,9 +423,6 @@ public class StudyOptionsFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.i(AnkiDroidApp.TAG, "StudyOptions - onDestroy()");
-        // if (mUnmountReceiver != null) {
-        // unregisterReceiver(mUnmountReceiver);
-        // }
     }
 
     
@@ -507,7 +451,6 @@ public class StudyOptionsFragment extends Fragment {
 
 
     private void closeStudyOptions(int result) {
-        // mCompat.invalidateOptionsMenu(this);
         if (!mFragmented) {
             getActivity().setResult(result);
             getActivity().finish();
@@ -589,13 +532,6 @@ public class StudyOptionsFragment extends Fragment {
         mTextDeckName = (TextView) mStudyOptionsView.findViewById(R.id.studyoptions_deck_name);
         mTextDeckDescription = (TextView) mStudyOptionsView.findViewById(R.id.studyoptions_deck_description);
         mButtonStart = (Button) mStudyOptionsView.findViewById(R.id.studyoptions_start);
-//        mButtonUp = (Button) mStudyOptionsView.findViewById(R.id.studyoptions_limitup);
-//        mButtonDown = (Button) mStudyOptionsView.findViewById(R.id.studyoptions_limitdown);
-//        mToggleLimitToggle = (ToggleButton) mStudyOptionsView.findViewById(R.id.studyoptions_limittoggle);
-
-        // mToggleNight = (ToggleButton) mStudyOptionsView
-        // .findViewById(R.id.studyoptions_night);
-        // mToggle.setChecked(mInvertedColors);
 
         if (AnkiDroidApp.colIsOpen() && AnkiDroidApp.getCol().getDecks().isDyn(AnkiDroidApp.getCol().getDecks().selected())) {
             Button rebBut = (Button) mStudyOptionsView.findViewById(R.id.studyoptions_rebuild_cram);
@@ -654,11 +590,6 @@ public class StudyOptionsFragment extends Fragment {
         mDeckChart = (LinearLayout) mStudyOptionsView.findViewById(R.id.studyoptions_chart);
 
         mButtonStart.setOnClickListener(mButtonClickListener);
-//        mButtonUp.setOnClickListener(mButtonClickListener);
-//        mButtonDown.setOnClickListener(mButtonClickListener);
-//        mToggleLimitToggle.setOnClickListener(mButtonClickListener);
-        // mToggleCram.setOnClickListener(mButtonClickListener);
-        // mToggleNight.setOnClickListener(mButtonClickListener);
 
         // The view that shows the congratulations view.
         mCongratsView = inflater.inflate(R.layout.studyoptions_congrats, null);
@@ -1098,7 +1029,6 @@ public class StudyOptionsFragment extends Fragment {
             renderer.setXLabelsAlign(Align.CENTER);
             renderer.setYLabelsAlign(Align.CENTER);
             renderer.setZoomEnabled(false, false);
-            // mRenderer.setMargins(new int[] { 15, 48, 30, 10 });
             renderer.setAntialiasing(true);
             renderer.setPanEnabled(true, false);
             GraphicalView chartView = ChartFactory.getBarChartView(getActivity(), dataset, renderer,
@@ -1269,28 +1199,9 @@ public class StudyOptionsFragment extends Fragment {
                 updateStatisticBars();
                 updateChart(serieslist);
 
-//                JSONObject conf = mCol.getConf();
-//                long timeLimit = 0;
-//                try {
-//                    timeLimit = (conf.getLong("timeLim") / 60);
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                mToggleLimitToggle.setChecked(timeLimit > 0 ? true : false);
-//                mToggleLimitToggle.setText(String.valueOf(timeLimit));
-
-//                Activity act = getActivity();
-//                if (act != null) {
-//                    SharedPreferences preferences = AnkiDroidApp.getSharedPrefs(act.getBaseContext());
-//                    mPrefHideDueCount = preferences.getBoolean("hideDueCount", true);
-//                }
                 mTextTodayNew.setText(String.valueOf(newCards));
                 mTextTodayLrn.setText(String.valueOf(lrnCards));
-//                if (mPrefHideDueCount) {
-//                    mTextTodayRev.setText("???");
-//                } else {
                     mTextTodayRev.setText(String.valueOf(revCards));
-//                }
                 mTextNewTotal.setText(totalNew == 1000 ? ">1000" : String.valueOf(totalNew));
                 mTextTotal.setText(String.valueOf(totalCards));
                 if (eta != -1) {
@@ -1342,15 +1253,11 @@ public class StudyOptionsFragment extends Fragment {
                 }
             }
             if (result.getBoolean()) {
-                // if (mStatisticType == Statistics.TYPE_DECK_SUMMARY) {
-                // Statistics.showDeckSummary(getActivity());
-                // } else {
                 Intent intent = new Intent(getActivity(), com.ichi2.charts.ChartBuilder.class);
                 startActivityForResult(intent, STATISTICS);
                 if (AnkiDroidApp.SDK_VERSION > 4) {
                     ActivityTransitionAnimation.slide(getActivity(), ActivityTransitionAnimation.DOWN);
                 }
-                // }
             }
         }
 

@@ -404,19 +404,6 @@ public class Syncer {
         }
     }
 
-//    private Map<String, Object> sanityCheck2(JSONArray client) {
-//        Object server = sanityCheck();
-//        Map<String, Object> result = new HashMap<String, Object>();
-//        if (client.equals(server)) {
-//            result.put("status", "ok");
-//        } else {
-//            result.put("status", "bad");
-//            result.put("c", client);
-//            result.put("s", server);
-//        }
-//        return result;
-//    }
-
     private String usnLim() {
         if (mCol.getServer()) {
             return "usn >= " + mMinUsn;

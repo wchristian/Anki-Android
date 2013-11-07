@@ -38,9 +38,6 @@ import java.util.TreeMap;
  */
 public class Decks {
 
-    // private TreeMap<Integer, Model> mModelCache;
-    // private TreeMap<Integer, JSONObject> mGroupConfCache;
-
     public static final String defaultDeck = "{" + "'newToday': [0, 0], " + // currentDay, count
             "'revToday': [0, 0], " + "'lrnToday': [0, 0], " + "'timeToday': [0, 0], " + // time in ms
             "'conf': 1, " + "'usn': 0, " + "'desc': \"\", 'dyn': 0, 'collapsed': False, " +
@@ -819,125 +816,6 @@ public class Decks {
             throw new RuntimeException(e);
         }
     }
-
-
-    // /**
-    // * Yes counts
-    // * @return todayAnswers, todayNoAnswers, matureAnswers, matureNoAnswers
-    // */
-    // public int[] yesCounts() {
-    // int dayStart = (getSched().mDayCutoff - 86400) * 10000;
-    // int todayAnswers = (int)
-    // getDB().queryScalar("SELECT count() FROM revlog WHERE time >= " +
-    // dayStart);
-    // int todayNoAnswers = (int)
-    // getDB().queryScalar("SELECT count() FROM revlog WHERE time >= " +
-    // dayStart + " AND ease = 1");
-    // int matureAnswers = (int)
-    // getDB().queryScalar("SELECT count() FROM revlog WHERE lastivl >= 21");
-    // int matureNoAnswers = (int)
-    // getDB().queryScalar("SELECT count() FROM revlog WHERE lastivl >= 21 AND ease = 1");
-    // return new int[] { todayAnswers, todayNoAnswers, matureAnswers,
-    // matureNoAnswers };
-    // }
-    //
-    //
-    // /**
-    // * Yes rates for today's and mature cards
-    // * @return todayRate, matureRate
-    // */
-    // public double[] yesRates() {
-    // int[] counts = yesCounts();
-    // return new double[] { 1 - (double)counts[1]/counts[0], 1 -
-    // (double)counts[3]/counts[2] };
-    // }
-    //
-    //
-    // // Media
-    // // *****
-    //
-    // /**
-    // * Return the media directory if exists, none if couldn't be created.
-    // *
-    // * @param create If true it will attempt to create the folder if it
-    // doesn't exist
-    // * @param rename This is used to simulate the python with create=None that
-    // is only used when renaming the mediaDir
-    // * @return The path of the media directory
-    // */
-    // public String mediaDir() {
-    // return mediaDir(false, false);
-    // }
-    // public String mediaDir(boolean create) {
-    // return mediaDir(create, false);
-    // }
-    // public String mediaDir(boolean create, boolean rename) {
-    // String dir = null;
-    // File mediaDir = null;
-    // if (mDeckPath != null && !mDeckPath.equals("")) {
-    // Log.i(AnkiDroidApp.TAG, "mediaDir - mediaPrefix = " + mMediaPrefix);
-    // if (mMediaPrefix != null) {
-    // dir = mMediaPrefix + "/" + mDeckName + ".media";
-    // } else {
-    // dir = mDeckPath.replaceAll("\\.anki$", ".media");
-    // }
-    // if (rename) {
-    // // Don't create, but return dir
-    // return dir;
-    // }
-    // mediaDir = new File(dir);
-    // if (!mediaDir.exists() && create) {
-    // try {
-    // if (!mediaDir.mkdir()) {
-    // Log.e(AnkiDroidApp.TAG, "Couldn't create media directory " + dir);
-    // return null;
-    // }
-    // } catch (SecurityException e) {
-    // Log.e(AnkiDroidApp.TAG,
-    // "Security restriction: Couldn't create media directory " + dir);
-    // return null;
-    // }
-    // }
-    // }
-    //
-    // if (dir == null) {
-    // return null;
-    // } else {
-    // if (!mediaDir.exists() || !mediaDir.isDirectory()) {
-    // return null;
-    // }
-    // }
-    // Log.i(AnkiDroidApp.TAG, "mediaDir - mediaDir = " + dir);
-    // return dir;
-    // }
-    //
-    // public String getMediaPrefix() {
-    // return mMediaPrefix;
-    // }
-    // public void setMediaPrefix(String mediaPrefix) {
-    // mMediaPrefix = mediaPrefix;
-    // }
-    // //
-    // //
-    // //
-    // // private boolean hasLaTeX() {
-    // // Cursor cursor = null;
-    // // try {
-    // // cursor = getDB().getDatabase().rawQuery(
-    // // "SELECT Id FROM fields WHERE " +
-    // // "(value like '%[latex]%[/latex]%') OR " +
-    // // "(value like '%[$]%[/$]%') OR " +
-    // // "(value like '%[$$]%[/$$]%') LIMIT 1 ", null);
-    // // if (cursor.moveToFirst()) {
-    // // return true;
-    // // }
-    // // } finally {
-    // // if (cursor != null) {
-    // // cursor.close();
-    // // }
-    // // }
-    // // return false;
-    // // }
 
     public HashMap<Long, JSONObject> getDconf() {
         return mDconf;

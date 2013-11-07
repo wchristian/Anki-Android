@@ -334,7 +334,6 @@ public class BasicTextFieldController extends FieldControllerBase implements IFi
                 showToast(gtxt(R.string.multimedia_editor_pron_pronunciation_failed));
             }
         } else if (requestCode == REQUEST_CODE_TRANSLATE_COLORDICT && resultCode == Activity.RESULT_OK) {
-            // String subject = data.getStringExtra(Intent.EXTRA_SUBJECT);
             String text = data.getStringExtra(Intent.EXTRA_TEXT);
 
             mEditText.setText(text);
@@ -408,11 +407,8 @@ public class BasicTextFieldController extends FieldControllerBase implements IFi
         Intent intent = new Intent(PICK_RESULT_ACTION);
         intent.putExtra(EXTRA_QUERY, mEditText.getText().toString()); // Search
                                                                       // Query
-        intent.putExtra(EXTRA_FULLSCREEN, false); //
-        // intent.putExtra(EXTRA_HEIGHT, 400); //400pixel, if you don't specify,
-        // fill_parent"
+        intent.putExtra(EXTRA_FULLSCREEN, false);
         intent.putExtra(EXTRA_GRAVITY, Gravity.BOTTOM);
-        // intent.putExtra(EXTRA_MARGIN_LEFT, 100);
         if (!isIntentAvailable(mActivity, intent)) {
             showToast(gtxt(R.string.multimedia_editor_trans_install_color_dict));
             return;

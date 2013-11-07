@@ -75,9 +75,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CardBrowser extends Activity {
-    // private List<Long> mCardIds = new ArrayList<Long>();
     private ArrayList<HashMap<String, String>> mCards;
-    // private ArrayList<HashMap<String, String>> mAllCards;
     private HashMap<String, String> mDeckNames;
     private ListView mCardsListView;
     private SimpleAdapter mCardsAdapter;
@@ -796,121 +794,6 @@ public class CardBrowser extends Activity {
         updateList();
     }
 
-//    private DeckTask.TaskListener mLoadCardsHandler = new DeckTask.TaskListener() {
-//        boolean canceled = false;
-//
-//
-//        @Override
-//        public void onPreExecute() {
-//            if (!mUndoRedoDialogShowing) {
-//                if (mProgressDialog != null && mProgressDialog.isShowing()) {
-//                    mProgressDialog.setMessage(getResources().getString(R.string.card_browser_load));
-//                    mProgressDialog.setOnCancelListener(new OnCancelListener() {
-//
-//                        @Override
-//                        public void onCancel(DialogInterface arg0) {
-//                            canceled = true;
-//                            DeckTask.cancelTask();
-//                            closeCardBrowser();
-//                        }
-//                    });
-//                } else {
-//                    mProgressDialog = StyledProgressDialog.show(CardBrowser.this, "",
-//                            getResources().getString(R.string.card_browser_load), true, true, new OnCancelListener() {
-//
-//                                @Override
-//                                public void onCancel(DialogInterface arg0) {
-//                                    canceled = true;
-//                                    DeckTask.cancelTask();
-//                                    closeCardBrowser();
-//                                }
-//                            });
-//                }
-//            } else {
-//                mProgressDialog.setMessage(getResources().getString(R.string.card_browser_load));
-//                mUndoRedoDialogShowing = false;
-//            }
-//        }
-//
-//
-//        @Override
-//        public void onPostExecute(DeckTask.TaskData result) {
-//            // This verification would not be necessary if
-//            // onConfigurationChanged it's executed correctly (which seems
-//            // that emulator does not do)
-//        }
-//
-//
-//        @Override
-//        public void onProgressUpdate(DeckTask.TaskData... values) {
-//            if (canceled) {
-//                return;
-//            }
-//            ArrayList<HashMap<String, String>> cards = values[0].getCards();
-//            if (cards == null) {
-//                Resources res = getResources();
-//                StyledDialog.Builder builder = new StyledDialog.Builder(CardBrowser.this);
-//                builder.setTitle(res.getString(R.string.error));
-//                builder.setIcon(R.drawable.ic_dialog_alert);
-//                builder.setMessage(res.getString(R.string.card_browser_cardloading_error));
-//                builder.setPositiveButton(res.getString(R.string.ok), new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        closeCardBrowser();
-//                    }
-//                });
-//                builder.setOnCancelListener(new OnCancelListener() {
-//                    @Override
-//                    public void onCancel(DialogInterface dialog) {
-//                        closeCardBrowser();
-//                    }
-//                });
-//                builder.create().show();
-//            } else {
-//                if (mPrefFixArabic) {
-//                    for (HashMap<String, String> entry : cards) {
-//                        entry.put("sfld", ArabicUtilities.reshapeSentence(entry.get("sfld")));
-//                    }
-//                }
-//                try {
-//
-//                    int field = AnkiDroidApp.getSharedPrefs(getBaseContext()).getInt("cardBrowserField", 0);
-//
-//					if (cards.size() > 0 && field > 0 && (mFields != null)) {
-//						Card tempCard = mCol.getCard(Long.parseLong(cards.get(0).get("id")));
-//						ArrayList<String> uniqueFields = new ArrayList<String>();
-//						for (HashMap<String, String> entry : cards) {
-//							tempCard = mCol.getCard(Long.parseLong(entry.get("id")));
-//							String item = tempCard.note().getitem(mFields[field]);
-//							entry.put("sfld", item);
-//
-//							if (!uniqueFields.contains(item)) {
-//								uniqueFields.add(item);
-//								mAllCards.add(entry);
-//								mCards.add(entry);
-//							}
-//						}
-//					} else {
-//						mAllCards.addAll(cards);
-//						mCards.addAll(cards);
-//					}
-//
-//                    if (mOrder == CARD_ORDER_NONE) {
-//                        updateCardsList();
-//                        mProgressDialog.dismiss();
-//                    } else {
-//                        DeckTask.launchDeckTask(DeckTask.TASK_TYPE_UPDATE_CARD_BROWSER_LIST, mSortCardsHandler,
-//                                new DeckTask.TaskData(mAllCards, new HashMapCompare()));
-//                    }
-//                } catch (OutOfMemoryError e) {
-//                    Log.e(AnkiDroidApp.TAG, "CardBrowser: mLoadCardsHandler: OutOfMemoryError: " + e);
-//                    Themes.showThemedToast(CardBrowser.this,
-//                            getResources().getString(R.string.error_insufficient_memory), false);
-//                    closeCardBrowser();
-//                }
-//            }
-//        }
-//    };
 
     private DeckTask.TaskListener mUpdateCardHandler = new DeckTask.TaskListener() {
         @Override
@@ -923,10 +806,6 @@ public class CardBrowser extends Activity {
 
         @Override
         public void onProgressUpdate(DeckTask.TaskData... values) {
-//            // Update list if search involved marked
-//            if (fSearchMarkedPattern.matcher(mSearchTerms).find()) {
-//                updateCardsList();
-//            }
             updateCardInList(values[0].getCard(), values[0].getString());
         }
 
@@ -958,10 +837,6 @@ public class CardBrowser extends Activity {
         @Override
         public void onPostExecute(DeckTask.TaskData result) {
             if (result.getBoolean()) {
-//                // Update list if search on suspended
-//                if (fSearchSuspendedPattern.matcher(mSearchTerms).find()) {
-//                    updateCardsList();
-//                }
                 updateCardInList(mCol.getCard(Long.parseLong(mCards.get(mPositionInCardsList).get("id"))), null);
             } else {
                 closeCardBrowser(DeckPicker.RESULT_DB_ERROR);
@@ -1079,70 +954,6 @@ public class CardBrowser extends Activity {
         }
     };
 
-
-    // private DeckTask.TaskListener mUndoRedoHandler = new DeckTask.TaskListener() {
-    // @Override
-    // public void onPreExecute() {
-    // Resources res = getResources();
-    // mProgressDialog = StyledProgressDialog.show(CardBrowser.this, "", res
-    // .getString(R.string.saving_changes), true);
-    // }
-    //
-    // @Override
-    // public void onProgressUpdate(DeckTask.TaskData... values) {
-    // }
-    //
-    // @Override
-    // public void onPostExecute(DeckTask.TaskData result) {
-    // mUndoRedoCardId = result.getLong();
-    // String undoType = result.getString();
-    // if (undoType.equals(Deck.UNDO_TYPE_DELETE_CARD)) {
-    // int position = getPosition(mDeletedCards, mUndoRedoCardId);
-    // if (position != -1) {
-    // HashMap<String, String> data = new HashMap<String, String>();
-    // data.put("id", mDeletedCards.get(position).get("id"));
-    // data.put("question", mDeletedCards.get(position).get(
-    // "question"));
-    // data.put("answer", mDeletedCards.get(position)
-    // .get("answer"));
-    // data.put("flags", mDeletedCards.get(position)
-    // .get("flags"));
-    // mAllCards.add(Integer.parseInt(mDeletedCards.get(position)
-    // .get("allCardPos")), data);
-    // mDeletedCards.remove(position);
-    // updateCardsList();
-    // } else {
-    // deleteCard(Long.toString(mUndoRedoCardId), getPosition(
-    // mCards, mUndoRedoCardId));
-    // }
-    // mProgressDialog.dismiss();
-    // } else {
-    // mUndoRedoCard = mDeck.cardFromId(mUndoRedoCardId);
-    // if (undoType.equals(Deck.UNDO_TYPE_EDIT_CARD)) {
-    // mUndoRedoCard.fromDB(mUndoRedoCardId);
-    // int pos = getPosition(mAllCards, mUndoRedoCardId);
-    // updateCard(mUndoRedoCard, mAllCards, pos);
-    // pos = getPosition(mCards, mUndoRedoCardId);
-    // if (pos != -1) {
-    // updateCard(mUndoRedoCard, mCards, pos);
-    // }
-    // updateList();
-    // mProgressDialog.dismiss();
-    // } else if (undoType.equals(Deck.UNDO_TYPE_MARK_CARD)) {
-    // markCards(mUndoRedoCard.getFactId(), mUndoRedoCard
-    // .isMarked());
-    // mProgressDialog.dismiss();
-    // } else if (undoType.equals(Deck.UNDO_TYPE_SUSPEND_CARD)) {
-    // suspendCard(mUndoRedoCard, getPosition(mCards,
-    // mUndoRedoCardId), mUndoRedoCard.getSuspendedState());
-    // mProgressDialog.dismiss();
-    // } else {
-    // mUndoRedoDialogShowing = true;
-    // getCards();
-    // }
-    // }
-    // }
-    // };
 
     private void closeCardBrowser() {
         closeCardBrowser(RESULT_CANCELED);

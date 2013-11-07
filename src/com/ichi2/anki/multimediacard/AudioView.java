@@ -131,19 +131,6 @@ public class AudioView extends LinearLayout {
     }
 
 
-    // public void setAudioPath(String audioPath)
-    // {
-    // if (mStatus == Status.IDLE)
-    // {
-    // mAudioPath = audioPath;
-    // }
-    // else
-    // {
-    // Log.e("Audio View",
-    // "Cannot set audio path after it has been initialized");
-    // }
-    // }
-
     public String getAudioPath() {
         return mAudioPath;
     }

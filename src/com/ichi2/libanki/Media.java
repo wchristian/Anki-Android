@@ -414,10 +414,6 @@ public class Media {
             z = new ZipFile(zipData, ZipFile.OPEN_READ);
             // get meta info first
             ZipEntry metaEntry = z.getEntry("_meta");
-            // if (metaEntry.getSize() >= 100000) {
-            // Log.e(AnkiDroidApp.TAG, "Size for _meta entry found too big (" + z.getEntry("_meta").getSize() + ")");
-            // return false;
-            // }
             meta = new JSONObject(Utils.convertStreamToString(z.getInputStream(metaEntry)));
             ZipEntry usnEntry = z.getEntry("_usn");
             String usnstr = Utils.convertStreamToString(z.getInputStream(usnEntry));

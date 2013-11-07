@@ -90,7 +90,6 @@ public class AnkiDroidWidgetSmall extends AppWidgetProvider {
         private RemoteViews buildUpdate(Context context, boolean updateDueDecksNow) {
             Log.i(AnkiDroidApp.TAG, "buildUpdate");
 
-            // Resources res = context.getResources();
             RemoteViews updateViews = new RemoteViews(context.getPackageName(), R.layout.widget_small);
 
             boolean mounted = AnkiDroidApp.isSdCardMounted();

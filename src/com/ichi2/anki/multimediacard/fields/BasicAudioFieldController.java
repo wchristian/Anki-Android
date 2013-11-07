@@ -76,7 +76,6 @@ public class BasicAudioFieldController extends FieldControllerBase implements IF
         audioView.setOnRecordingFinishEventListener(new AudioView.OnRecordingFinishEventListener() {
             @Override
             public void onRecordingFinish(View v) {
-                // currentFilePath.setText("Recording done, you can preview it. Hit save after finish");
                 mField.setAudioPath(tempAudioPath);
                 mField.setHasTemporaryMedia(true);
             }

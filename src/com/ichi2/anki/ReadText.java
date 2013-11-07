@@ -47,8 +47,6 @@ public class ReadText {
     public static ArrayList<String[]> sTextQueue = new ArrayList<String[]>();
     public static HashMap<String, String> mTtsParams;
 
-    // private boolean mTtsReady = false;
-
     public static void speak(String text, String loc) {
         int result = mTts.setLanguage(new Locale(loc));
         if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {

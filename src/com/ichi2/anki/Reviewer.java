@@ -431,8 +431,6 @@ public class Reviewer extends AnkiActivity {
     // Stores kanji to display their meaning after answering cards
     private static HashMap<String, String> sKanjiInfo = new HashMap<String, String>();
 
-    // private int zEase;
-
     // ----------------------------------------------------------------------------
     // LISTENERS
     // ----------------------------------------------------------------------------
@@ -490,18 +488,6 @@ public class Reviewer extends AnkiActivity {
         public void onClick(View view) {
             Log.i(AnkiDroidApp.TAG, "Show card statistics");
             stopTimer();
-            // Themes.htmlOkDialog(Reviewer.this, getResources().getString(R.string.card_browser_card_details),
-            // mCurrentCard.getCardDetails(Reviewer.this, false), new DialogInterface.OnClickListener() {
-            // @Override
-            // public void onClick(DialogInterface dialog, int which) {
-            // restartTimer();
-            // }
-            // }, new OnCancelListener() {
-            // @Override
-            // public void onCancel(DialogInterface arg0) {
-            // restartTimer();
-            // }
-            // }).show();
         }
     };
 
@@ -721,11 +707,6 @@ public class Reviewer extends AnkiActivity {
         public void onProgressUpdate(DeckTask.TaskData... values) {
             Resources res = getResources();
 
-            // if in background, actualise widget
-            // if (mInBackground) {
-            // updateBigWidget(false);
-            // }
-
             if (mSched == null) {
                 finish();
                 return;
@@ -778,10 +759,6 @@ public class Reviewer extends AnkiActivity {
                 Themes.showThemedToast(Reviewer.this, timeboxMessage, true);
                 AnkiDroidApp.getCol().startTimebox();
             }
-
-            // if (mChosenAnswer.getText().equals("")) {
-            // setDueMessage();
-            // }
         }
 
 
@@ -1035,24 +1012,7 @@ public class Reviewer extends AnkiActivity {
     protected void onResume() {
         mInBackground = false;
         super.onResume();
-        // Decks deck = DeckManager.getMainDeck();
-        // if (deck == null) {
-        // Log.e(AnkiDroidApp.TAG, "Reviewer: Deck already closed, returning to study options");
-        // closeReviewer(RESULT_DECK_CLOSED, false);
-        // return;
-        // }
-
-        // check if deck is already opened in big widget. If yes, reload card (to make sure it's not answered yet)
-        // if (DeckManager.deckIsOpenedInBigWidget(deck.getDeckPath()) && mCurrentCard != null && !mInEditor) {
-        // Log.i(AnkiDroidApp.TAG, "Reviewer: onResume: get card from big widget");
-        // blockControls();
-        // AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_NOT_SPECIFIED, true);
-        // DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD, mAnswerCardHandler, new DeckTask.TaskData(0, deck,
-        // null));
-        // } else {
         restartTimer();
-        // }
-        //
         if (mShakeEnabled) {
             mSensorManager.registerListener(mSensorListener,
                     mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
@@ -1067,25 +1027,12 @@ public class Reviewer extends AnkiActivity {
             mSensorManager.unregisterListener(mSensorListener);
         }
         super.onStop();
-        // Decks deck = DeckManager.getMainDeck();
-        // if (!isFinishing()) {
-        // // Save changes
-        // updateBigWidget(!mCardFrame.isEnabled());
-        // DeckTask.waitToFinish();
-        // if (deck != null) {
-        // deck.commitToDB();
-        // }
-        // }
 
         if (!isFinishing()) {
-            // try {
         	if (AnkiDroidApp.colIsOpen()) {
                 WidgetStatus.update(this, mSched.progressToday(null, mCurrentCard, true));
         	}
 
-            // } catch (JSONException e) {
-            // throw new RuntimeException(e);
-            // }
             UIUtils.saveCollectionInBackground();
         }
     }
@@ -1145,71 +1092,6 @@ public class Reviewer extends AnkiActivity {
 
         return super.onKeyDown(keyCode, event);
     }
-
-
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//        setLanguage(mLocale);
-//        Log.i(AnkiDroidApp.TAG, "onConfigurationChanged");
-//
-//        mConfigurationChanged = true;
-//
-//        long savedTimer = mCardTimer.getBase();
-//        CharSequence savedAnswerField = mAnswerField.getText();
-//        boolean cardVisible = mCardContainer.getVisibility() == View.VISIBLE;
-//        int lookupButtonVis = mLookUpIcon.getVisibility();
-//
-//        // Reload layout
-//        initLayout(R.layout.flashcard);
-//
-//        if (mRelativeButtonSize != 100) {
-//            mFlipCard.setHeight(mButtonHeight);
-//            mEase1.setHeight(mButtonHeight);
-//            mEase2.setHeight(mButtonHeight);
-//            mEase3.setHeight(mButtonHeight);
-//            mEase4.setHeight(mButtonHeight);
-//        }
-//
-//        // Modify the card template to indicate the new available width and refresh card
-//        mCardTemplate = mCardTemplate.replaceFirst("var availableWidth = \\d*;", "var availableWidth = "
-//                + getAvailableWidthInCard() + ";");
-//
-//        if (typeAnswer()) {
-//            mAnswerField.setText(savedAnswerField);
-//        }
-//        if (mPrefWhiteboard) {
-//            mWhiteboard.rotate();
-//        }
-//        if (mInvertedColors) {
-//            invertColors(true);
-//        }
-//
-//        // If the card hasn't loaded yet, don't refresh it
-//        // Also skipping the counts (because we don't know which one to underline)
-//        // They will be updated when the card loads anyway
-//        if (mCurrentCard != null) {
-//            if (cardVisible) {
-//                fillFlashcard(false);
-//                if (mPrefTimer) {
-//                    mCardTimer.setBase(savedTimer);
-//                    mCardTimer.start();
-//                }
-//                if (sDisplayAnswer) {
-//                    updateForNewCard();
-//                }
-//            } else {
-//                mCardContainer.setVisibility(View.INVISIBLE);
-//                switchVisibility(mProgressBars, View.INVISIBLE);
-//                switchVisibility(mCardTimer, View.INVISIBLE);
-//            }
-//            if (sDisplayAnswer) {
-//                showEaseButtons();
-//            }
-//        }
-//        mLookUpIcon.setVisibility(lookupButtonVis);
-//        mConfigurationChanged = false;
-//    }
 
 
     @Override
@@ -1275,11 +1157,6 @@ public class Reviewer extends AnkiActivity {
     }
 
     private void updateBigWidget(boolean showProgressDialog) {
-        // if (DeckManager.deckIsOpenedInBigWidget(DeckManager.getMainDeckPath())) {
-        // Log.i(AnkiDroidApp.TAG, "Reviewer: updateBigWidget");
-        // AnkiDroidWidgetBig.setCard(mCurrentCard);
-        // AnkiDroidWidgetBig.updateWidget(AnkiDroidWidgetBig.UpdateService.VIEW_SHOW_QUESTION, showProgressDialog);
-        // }
     }
 
 
@@ -1655,9 +1532,6 @@ public class Reviewer extends AnkiActivity {
             case EASE_FAILED:
                 mChosenAnswer.setText("\u2022");
                 mChosenAnswer.setTextColor(mNext1.getTextColors());
-                // if ((deck.getDueCount() + deck.getNewCountToday()) == 1) {
-                // mIsLastCard = true;
-                // }
                 break;
             case EASE_HARD:
                 mChosenAnswer.setText("\u2022\u2022");
@@ -2042,13 +1916,12 @@ public class Reviewer extends AnkiActivity {
         mPrefWriteAnswers = preferences.getBoolean("writeAnswers", true);
         mPrefTextSelection = preferences.getBoolean("textSelection", true);
         mLongClickWorkaround = preferences.getBoolean("textSelectionLongclickWorkaround", false);
-        // mDeckFilename = preferences.getString("deckFilename", "");
         mNightMode = preferences.getBoolean("invertedColors", false);
         mInvertedColors = mNightMode;
         mBlackWhiteboard = preferences.getBoolean("blackWhiteboard", true);
         mPrefFullscreenReview = preferences.getBoolean("fullscreenReview", false);
         mZoomEnabled = preferences.getBoolean("zoom", false);
-        mDisplayFontSize = preferences.getInt("relativeDisplayFontSize", 100);// Card.DEFAULT_FONT_SIZE_RATIO);
+        mDisplayFontSize = preferences.getInt("relativeDisplayFontSize", 100);
         mRelativeImageSize = preferences.getInt("relativeImageSize", 100);
         mRelativeButtonSize = preferences.getInt("answerButtonSize", 100);
         mInputWorkaround = preferences.getBoolean("inputWorkaround", false);
@@ -2193,12 +2066,6 @@ public class Reviewer extends AnkiActivity {
     }
 
     private void setDueMessage() {
-        // Decks deck = DeckManager.getMainDeck();
-        // if (mCurrentCard != null && deck != null && deck.getScheduler().equals("reviewEarly") &&
-        // mCurrentCard.getType() != Card.TYPE_FAILED) {
-        // mChosenAnswer.setTextColor(mForegroundColor);
-        // mChosenAnswer.setText(Utils.fmtTimeSpan(mCurrentCard.getCombinedDue() - Utils.now(), Utils.TIME_FORMAT_IN));
-        // }
     }
 
 
@@ -2355,11 +2222,6 @@ public class Reviewer extends AnkiActivity {
             }
 
             displayString = enrichWithQADiv(question, false);
-
-            if (mSpeakText) {
-                // ReadText.setLanguageInformation(Model.getModel(DeckManager.getMainDeck(),
-                // mCurrentCard.getCardModelId(), false).getId(), mCurrentCard.getCardModelId());
-            }
         }
 
         updateCard(displayString);
@@ -3319,8 +3181,6 @@ public class Reviewer extends AnkiActivity {
 
         setOutAnimation(true);
 
-        // updateBigWidget(!mCardFrame.isEnabled());
-
         if (saveDeck) {
             UIUtils.saveCollectionInBackground();
         }
@@ -3508,9 +3368,6 @@ public class Reviewer extends AnkiActivity {
 
         public void handleTag(boolean opening, String tag, Editable output,
                 XMLReader xmlReader) {
-//            if(tag.equalsIgnoreCase("div")) {
-//            	output.append("\n");
-//            } else
         	if(tag.equalsIgnoreCase("strike") || tag.equals("s")) {
                 int len = output.length();
                 if(opening) {

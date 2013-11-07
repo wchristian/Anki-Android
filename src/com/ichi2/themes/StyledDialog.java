@@ -543,7 +543,6 @@ public class StyledDialog extends Dialog {
             if (itemTitels != null) {
                 dialog.setItems(listStyle, (ListView) layout.findViewById(R.id.listview), itemTitels, checkedItem,
                         multipleCheckedItems, itemClickListener);
-                // ((View) layout.findViewById(R.id.titleDivider)).setVisibility(View.GONE);
             } else {
                 ((View) layout.findViewById(R.id.listViewPanel)).setVisibility(View.GONE);
             }

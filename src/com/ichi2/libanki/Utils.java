@@ -176,8 +176,7 @@ public class Utils {
     	double ftime = convertSecondsTo(time, type);
 
     	int formatId;
-    	if (false){//_short) {
-    	    //formatId = R.array.next_review_short;
+    	if (false){
     	} else {
         	switch (format) {
         	case TIME_FORMAT_IN:
@@ -485,28 +484,6 @@ public class Utils {
     	return guid;
     }
 
-//    public static JSONArray listToJSONArray(List<Object> list) {
-//        JSONArray jsonArray = new JSONArray();
-//
-//        for (Object o : list) {
-//            jsonArray.put(o);
-//        }
-//
-//        return jsonArray;
-//    }
-//
-//
-//    public static List<String> jsonArrayToListString(JSONArray jsonArray) throws JSONException {
-//        ArrayList<String> list = new ArrayList<String>();
-//
-//        int len = jsonArray.length();
-//        for (int i = 0; i < len; i++) {
-//            list.add(jsonArray.getString(i));
-//        }
-//
-//        return list;
-//    }
-
     public static long[] jsonArrayToLongArray(JSONArray jsonArray) throws JSONException {
     	long[] ar = new long[jsonArray.length()];
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -638,50 +615,6 @@ public class Utils {
         return text.replaceAll("<br(\\s*\\/*)>", "\n");
 	}
 
-
-//    /**
-//     * MD5 sum of file.
-//     * Equivalent to checksum(open(os.path.join(mdir, file), "rb").read()))
-//     *
-//     * @param path The full path to the file
-//     * @return A string of length 32 containing the hexadecimal representation of the MD5 checksum of the contents
-//     * of the file
-//     */
-//    public static String fileChecksum(String path) {
-//        byte[] bytes = null;
-//        try {
-//            File file = new File(path);
-//            if (file != null && file.isFile()) {
-//                bytes = new byte[(int)file.length()];
-//                FileInputStream fin = new FileInputStream(file);
-//                fin.read(bytes);
-//            }
-//        } catch (FileNotFoundException e) {
-//            Log.e(AnkiDroidApp.TAG, "Can't find file " + path + " to calculate its checksum");
-//        } catch (IOException e) {
-//            Log.e(AnkiDroidApp.TAG, "Can't read file " + path + " to calculate its checksum");
-//        }
-//        if (bytes == null) {
-//            Log.w(AnkiDroidApp.TAG, "File " + path + " appears to be empty");
-//            return "";
-//        }
-//        MessageDigest md = null;
-//        byte[] digest = null;
-//        try {
-//            md = MessageDigest.getInstance("MD5");
-//            digest = md.digest(bytes);
-//        } catch (NoSuchAlgorithmException e) {
-//            Log.e(AnkiDroidApp.TAG, "Utils.checksum: No such algorithm. " + e.getMessage());
-//            throw new RuntimeException(e);
-//        }
-//        BigInteger biginteger = new BigInteger(1, digest);
-//        String result = biginteger.toString(16);
-//        // pad with zeros to length of 32
-//        if (result.length() < 32) {
-//            result = "00000000000000000000000000000000".substring(0, 32 - result.length()) + result;
-//        }
-//        return result;
-//    }
 
     /**
      *  Tempo files
@@ -903,16 +836,6 @@ public class Utils {
             Log.e(AnkiDroidApp.TAG, "IOException = " + e1.getMessage());
         }
     }
-
-
-    /*
-    public static void saveJSONObject(JSONObject jsonObject) throws IOException {
-        Log.i(AnkiDroidApp.TAG, "saveJSONObject");
-        BufferedWriter buff = new BufferedWriter(new FileWriter("/sdcard/jsonObjectAndroid.txt", true));
-        buff.write(jsonObject.toString());
-        buff.close();
-    }
-    */
 
 
     /**

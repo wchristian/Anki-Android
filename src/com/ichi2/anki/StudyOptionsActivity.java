@@ -66,14 +66,6 @@ public class StudyOptionsActivity extends FragmentActivity {
         Themes.applyTheme(this);
         super.onCreate(savedInstanceState);
 
-        // if (getResources().getConfiguration().orientation
-        // == Configuration.ORIENTATION_LANDSCAPE) {
-        // // If the screen is now in landscape mode, we can show the
-        // // dialog in-line so we don't need this activity.
-        // finish();
-        // return;
-        // }
-
         if (savedInstanceState == null) {
         	loadContent(getIntent().getBooleanExtra("onlyFnsMsg", false));
         }
@@ -181,7 +173,6 @@ public class StudyOptionsActivity extends FragmentActivity {
                     cramDeckName = "Cram " + n;
                 }
                 mDialogEditText.setText(cramDeckName);
-                // mDialogEditText.setFilters(new InputFilter[] { mDeckNameFilter });
                 builder.setView(mDialogEditText, false, false);
                 builder.setPositiveButton(res.getString(R.string.create), new DialogInterface.OnClickListener() {
                     @Override
@@ -229,7 +220,6 @@ public class StudyOptionsActivity extends FragmentActivity {
 
 
     private void closeStudyOptions(int result) {
-        // mCompat.invalidateOptionsMenu(this);
         setResult(result);
         finish();
         if (AnkiDroidApp.SDK_VERSION > 4) {

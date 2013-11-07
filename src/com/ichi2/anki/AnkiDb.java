@@ -58,7 +58,6 @@ public class AnkiDb {
                 mDatabase.rawQuery("PRAGMA synchronous = 2", null);
             }
         }
-        // getDatabase().beginTransactionNonExclusive();
         mMod = false;
     }
 
@@ -79,12 +78,6 @@ public class AnkiDb {
 
 
     public void commit() {
-        // SQLiteDatabase db = getDatabase();
-        // while (db.inTransaction()) {
-        // db.setTransactionSuccessful();
-        // db.endTransaction();
-        // }
-        // db.beginTransactionNonExclusive();
     }
 
 

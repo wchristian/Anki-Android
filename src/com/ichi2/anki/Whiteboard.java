@@ -46,7 +46,6 @@ public class Whiteboard extends View {
     private int mForegroundColor;
 
     private boolean mLocked;
-    // private boolean mRecreateBitmap = false;
 
     private float mX;
     private float mY;
@@ -101,20 +100,6 @@ public class Whiteboard extends View {
     }
 
 
-   // // We use only one big, square bitmap now. Nothing left to do here, then.
-   //  @Override
-   //  protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-   //      // We want to create the bitmap again only when the screen has been rotated,
-   //      // not when the size changes in the transition between the front and the back
-   //      // of a card (that would made the Whiteboard to disappear)
-   //      if (mRecreateBitmap) {
-   //          createBitmap();
-   //          super.onSizeChanged(w, h, oldw, oldh);
-   //          mRecreateBitmap = false;
-   //      }
-   //  }
-
-
     /**
      * Handle touch screen motion events.
      *
@@ -153,17 +138,6 @@ public class Whiteboard extends View {
 
         return handled;
     }
-
-
-   // // This hasn't been called anyway for a while now. See also
-   // //  onSizeChanged and createBitmap for more comments.
-   //  /**
-   //   * Create a new bitmap that fits the new screen layout. The content of the whiteboard does not survive screen
-   //   * rotation.
-   //   */
-   //  public void rotate() {
-   //      mRecreateBitmap = true;
-   //  }
 
 
     /**

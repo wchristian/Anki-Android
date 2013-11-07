@@ -176,7 +176,6 @@ public class Anki2Importer {
         _importNotes();
 		Log.i(AnkiDroidApp.TAG, "Import - importing cards");
         int cnt = _importCards();
-//		_importMedia();
 		Log.i(AnkiDroidApp.TAG, "Import - finishing");
         publishProgress(true, 100, 100, false);
 		_postImport();
@@ -250,14 +249,6 @@ public class Anki2Importer {
             		mNotes.put((String) note[GUID], new Object[]{note[0], note[3], note[MID]});
             	} else {
             		dupes += 1;
-//            		// update existing note - not yet tested; for post 2.0
-//            		boolean newer = note[3] > mod;
-//            		if (mAllowUpdate && _mid(mid) == mid && newer) {
-//            			note[0] = localNid;
-//            			note[4] = usn;
-//            			add.add(note);
-//            			dirty.add(note[0]);
-//            		}
             	}
                 ++i;
                 publishProgress(true, i * 100 / total, 0, false);

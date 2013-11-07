@@ -165,7 +165,6 @@ public class LoadPronounciationActivity extends Activity implements OnCancelList
         try {
             mPostTranslation = new BackgroundPost();
             mPostTranslation.setAddress(mTranslationAddress);
-            // post.setStopper(PRONUNC_STOPPER);
             mPostTranslation.execute();
         } catch (Exception e) {
             progressDialog.dismiss();
@@ -192,21 +191,8 @@ public class LoadPronounciationActivity extends Activity implements OnCancelList
 
         private String mAddress;
 
-
-        // private String mStopper;
-
         @Override
         protected String doInBackground(Void... params) {
-            // TMP CODE for quick testing
-            // if (mAddress.contentEquals(mTranslationAddress))
-            // {
-            // return MockTranslationFetcher.get();
-            // }
-            // else if (mAddress.contentEquals(mPronunciationAddress))
-            // {
-            // return MockPronounciationPageFetcher.get();
-            // }
-
             // Should be just this
             return HttpFetcher.fetchThroughHttp(getAddress(), "ISO-8859-1");
         }

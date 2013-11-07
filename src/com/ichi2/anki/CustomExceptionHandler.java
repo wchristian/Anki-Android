@@ -39,7 +39,6 @@ public class CustomExceptionHandler implements Thread.UncaughtExceptionHandler {
     private static CustomExceptionHandler sInstance;
     private Thread.UncaughtExceptionHandler mPreviousHandler;
     private Context mCurContext;
-    // private Random randomGenerator = new Random();
 
     private HashMap<String, String> mInformation = new HashMap<String, String>(20);
 
@@ -99,15 +98,11 @@ public class CustomExceptionHandler implements Thread.UncaughtExceptionHandler {
             mInformation.put("Brand", android.os.Build.BRAND);
             mInformation.put("Device", android.os.Build.DEVICE);
             mInformation.put("Display", android.os.Build.DISPLAY);
-            // mInformation.put("FingerPrint", android.os.Build.FINGERPRINT);
             mInformation.put("Host", android.os.Build.HOST);
             mInformation.put("ID", android.os.Build.ID);
             mInformation.put("Model", android.os.Build.MODEL);
             mInformation.put("Product", android.os.Build.PRODUCT);
-            // mInformation.put("Tags", android.os.Build.TAGS);
             mInformation.put("Time", Long.toString(android.os.Build.TIME));
-            // mInformation.put("Type", android.os.Build.TYPE);
-            // mInformation.put("User", android.os.Build.USER);
             mInformation.put("TotalInternalMemory", Long.toString(getTotalInternalMemorySize()));
             mInformation.put("AvailableInternalMemory", Long.toString(getAvailableInternalMemorySize()));
             mInformation.put("Locale", AnkiDroidApp.getAppResources().getConfiguration().locale.toString());

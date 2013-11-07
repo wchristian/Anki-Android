@@ -72,7 +72,6 @@ public class MetaDB {
     /** Creating any table that missing and upgrading necessary tables. */
     private static SQLiteDatabase upgradeDB(SQLiteDatabase mMetaDb, int databaseVersion) {
         Log.i(AnkiDroidApp.TAG, "Upgrading Internal Database..");
-        // if (mMetaDb.getVersion() == 0) {
         Log.i(AnkiDroidApp.TAG, "Applying changes for version: 0");
 
         if (mMetaDb.getVersion() < 4) {
@@ -462,9 +461,6 @@ public class MetaDB {
             if (cursor.moveToFirst()) {
             	return cursor.getInt(0);
             }
-//            while (cursor.moveToNext()) {
-//                due += cursor.getInt(0) + cursor.getInt(1) + cursor.getInt(2);
-//            }
         } catch (SQLiteException e) {
             Log.e(AnkiDroidApp.TAG, "Error while querying widgetStatus", e);
         } finally {

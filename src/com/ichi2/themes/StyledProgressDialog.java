@@ -82,11 +82,6 @@ public class StyledProgressDialog extends Dialog {
         // set title
         if (title != null && title.length() > 0) {
             ((TextView) layout.findViewById(R.id.alertTitle)).setText(title);
-            // if (icon != 0) {
-            // ((ImageView) layout.findViewById(R.id.icon)).setImageResource(icon);
-            // } else {
-            // layout.findViewById(R.id.icon).setVisibility(View.GONE);
-            // }
         } else {
             layout.findViewById(R.id.topPanel).setVisibility(View.GONE);
             layout.findViewById(R.id.titleDivider).setVisibility(View.GONE);
@@ -96,9 +91,6 @@ public class StyledProgressDialog extends Dialog {
         if (message != null) {
             TextView tv = (TextView) layout.findViewById(R.id.message);
             tv.setText(message);
-            // if (messageSize != 0) {
-            // tv.setTextSize(messageSize * context.getResources().getDisplayMetrics().scaledDensity);
-            // }
         }
 
         // set background

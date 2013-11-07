@@ -328,24 +328,6 @@ public class Tags {
     }
 
 
-    // /**
-    // * Add tags if they don't exist.
-    // * Both parameters are in string format, the tags being separated by space or comma, as in parseTags
-    // *
-    // * @param tagStr The new tag(s) that are to be added
-    // * @param tags The set of tags where the new ones will be added
-    // * @return A string containing the union of tags of the input parameters
-    // */
-    // public static String addTags(String addtags, String tags) {
-    // ArrayList<String> currentTags = new ArrayList<String>(Arrays.asList(parseTags(tags)));
-    // for (String tag : parseTags(addtags)) {
-    // if (!hasTag(tag, currentTags)) {
-    // currentTags.add(tag);
-    // }
-    // }
-    // return canonifyTags((String[]) currentTags.toArray());
-    // }
-
     /**
      * Tag-based selective study
      * ***********************************************************************************************

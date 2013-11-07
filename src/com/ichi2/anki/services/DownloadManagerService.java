@@ -71,9 +71,6 @@ import java.util.zip.ZipInputStream;
 
 public class DownloadManagerService extends Service {
 
-    // private int counter = 0;
-    // private Handler serviceHandler = null;
-
     // Max size of download buffer.
     private static final int MAX_BUFFER_SIZE = 1024;
 
@@ -111,9 +108,6 @@ public class DownloadManagerService extends Service {
         // Clean up shared preferences of completed downloads
         removeCompletedDownloadsPrefs();
         resumeDownloads();
-
-        // serviceHandler = new Handler();
-        // serviceHandler.postDelayed( new RunTask(),1000L );
     }
 
 
@@ -144,7 +138,6 @@ public class DownloadManagerService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.i(AnkiDroidApp.TAG, "Service - onDestroy");
-        // serviceHandler = null;
     }
 
 
@@ -398,12 +391,6 @@ public class DownloadManagerService extends Service {
                 System.currentTimeMillis());
 
         String deckPath = mDestination + "/" + deckFilename + ".anki";
-        // Intent loadDeckIntent = StudyOptions.getLoadDeckIntent(this, deckPath);
-        // The PendingIntent to launch our activity if the user selects this notification
-        // PendingIntent contentIntent = PendingIntent.getActivity(this, 0, loadDeckIntent, 0);
-
-        // Set the info for the views that show in the notification panel
-        // notification.setLatestEventInfo(this, deckTitle, res.getString(R.string.deck_downloaded), contentIntent);
 
         // Clear the notification when the user selects it
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
@@ -558,25 +545,6 @@ public class DownloadManagerService extends Service {
     };
 
     /********************************************************************
-     * Listeners *
-     ********************************************************************/
-
-    // public interface ProgressListener {
-    // public void onProgressUpdate(Object... values);
-    // }
-    // private ProgressListener mUpdateListener = new ProgressListener() {
-    // @Override
-    // public void onProgressUpdate(Object... values) {
-    // String deckPath = (String) values[0];
-    // Long numUpdatedCards = (Long) values[1];
-    // //Save on preferences
-    // SharedPreferences pref = PrefSettings.getSharedPrefs(getBaseContext());
-    // Editor editor = pref.edit();
-    // editor.putLong("numUpdatedCards:" + deckPath, numUpdatedCards); editor.commit();
-    // }
-    // };
-
-    /********************************************************************
      * Async Tasks *
      ********************************************************************/
 
@@ -600,7 +568,6 @@ public class DownloadManagerService extends Service {
                 connection.setUseCaches(false);
                 connection.setRequestMethod("POST");
                 Log.i(AnkiDroidApp.TAG, "Range = " + download.getDownloaded());
-                // connection.setRequestProperty("Range","bytes=" + download.getDownloaded() + "-");
                 connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
 
                 connection.connect();
@@ -632,7 +599,6 @@ public class DownloadManagerService extends Service {
                 int contentLength = connection.getContentLength();
                 if (contentLength < 1) {
                     Log.i(AnkiDroidApp.TAG, "Content Length = -1");
-                    // download.setStatus(Download.ERROR);
                 }
 
                 // Set the size for this download if it hasn't been already set
@@ -651,11 +617,7 @@ public class DownloadManagerService extends Service {
                     // Size buffer according to how much of the file is left to download
                     Log.v(AnkiDroidApp.TAG, "Downloading... " + download.getDownloaded());
                     byte[] buffer;
-                    // if (size - downloaded > MAX_BUFFER_SIZE) {
                     buffer = new byte[MAX_BUFFER_SIZE];
-                    // } else {
-                    // buffer = new byte[size - downloaded];
-                    // }
 
                     // Read from server into buffer.
                     int read = iis.read(buffer);
@@ -752,126 +714,6 @@ public class DownloadManagerService extends Service {
         @Override
         protected SharedDeckDownload doInBackground(Download... downloads) {
             super.doInBackground(downloads);
-            // SharedDeckDownload download = (SharedDeckDownload) downloads[0];
-            //
-            // URL url;
-            // RandomAccessFile file = null;
-            // InputStream is = null;
-            //
-            // try {
-            // url = new URL("http://" + Collection.SYNC_HOST + "/file/get?id=" + download.getId());
-            // HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            //
-            // connection.setDoInput(true);
-            // connection.setDoOutput(true);
-            // connection.setUseCaches(false);
-            // connection.setRequestMethod("GET");
-            // Log.i(AnkiDroidApp.TAG, "Range = " + download.getDownloaded());
-            // // FIXME: Seems that Range property is also not working well here -> TEST IT!
-            // // connection.setRequestProperty("Range","bytes=" + download.getDownloaded() + "-");
-            // connection.setRequestProperty("Accept-Encoding", "identity");
-            // // connection.setRequestProperty("Host", Collection.SYNC_HOST);
-            // connection.setRequestProperty("Connection", "close");
-            //
-            // connection.connect();
-            //
-            // long startTime = System.currentTimeMillis();
-            //
-            // // Make sure response code is in the 200 range.
-            // if (connection.getResponseCode() / 100 != 2) {
-            // download.setStatus(Download.STATUS_ERROR);
-            // publishProgress();
-            // } else {
-            // download.setStatus(Download.STATUS_DOWNLOADING);
-            // publishProgress();
-            // }
-            //
-            // Log.i(AnkiDroidApp.TAG, "Response code = " + connection.getResponseCode());
-            //
-            // // Check for valid content length.
-            // Log.i(AnkiDroidApp.TAG, "Connection length = " + connection.getContentLength());
-            // int contentLength = connection.getContentLength();
-            // if (contentLength < 1) {
-            // Log.i(AnkiDroidApp.TAG, "Content Length = -1");
-            // // download.setStatus(Download.ERROR);
-            // }
-            //
-            // // Set the size for this download if it hasn't been already set
-            // if (download.getSize() == -1 && contentLength != -1) {
-            // download.setSize(contentLength);
-            // Log.i(AnkiDroidApp.TAG, "File size = " + contentLength);
-            // // TODO: NOTIFY???
-            // }
-            //
-            // // Open file
-            // file = new RandomAccessFile(mDestination + "/tmp/" + download.getFilename() + "." + download.getId()
-            // + ".shared.zip.tmp", "rw");
-            // // FIXME: Uncomment next line when the connection is fixed on AnkiOnline (= when the connection only
-            // // returns the bytes specified on the range property)
-            // // file.seek(download.getDownloaded());
-            //
-            // is = connection.getInputStream();
-            //
-            // while (download.getStatus() == Download.STATUS_DOWNLOADING) {
-            // Log.i(AnkiDroidApp.TAG, "Downloading... " + download.getDownloaded());
-            // byte[] buffer;
-            // // if (size - downloaded > MAX_BUFFER_SIZE) {
-            // buffer = new byte[MAX_BUFFER_SIZE];
-            // // } else {
-            // // buffer = new byte[size - downloaded];
-            // // }
-            //
-            // // Read from server into buffer.
-            // int read = is.read(buffer);
-            // if (read == -1) {
-            // break;
-            // }
-            //
-            // // Write buffer to file.
-            // file.write(buffer, 0, read);
-            // download.setDownloaded(download.getDownloaded() + read);
-            // publishProgress();
-            // }
-            //
-            // if (download.getStatus() == Download.STATUS_DOWNLOADING) {
-            // // Change status to complete if this point was reached because downloading has finished
-            // download.setStatus(Download.STATUS_COMPLETE);
-            // new File(mDestination + "/tmp/" + download.getFilename() + "." + download.getId() + ".shared.zip.tmp")
-            // .renameTo(new File(mDestination + "/tmp/" + download.getFilename() + ".zip"));
-            // long finishTime = System.currentTimeMillis();
-            // Log.i(AnkiDroidApp.TAG, "Finished in " + ((finishTime - startTime) / 1000) + " seconds!");
-            // Log.i(AnkiDroidApp.TAG, "Downloaded = " + download.getDownloaded());
-            // } else if (download.getStatus() == Download.STATUS_CANCELLED) {
-            // // Cancelled download, clean up
-            // new File(mDestination + "/tmp/" + download.getFilename() + "." + download.getId()
-            // + ".shared.zip.tmp").delete();
-            // Log.i(AnkiDroidApp.TAG, "Download cancelled.");
-            // }
-            // publishProgress();
-            // connection.disconnect();
-            // } catch (Exception e) {
-            // e.printStackTrace();
-            // Log.i(AnkiDroidApp.TAG, "Exception Error = " + e.getMessage());
-            // download.setStatus(Download.STATUS_ERROR);
-            // publishProgress();
-            // } finally {
-            // // Close file
-            // if (file != null) {
-            // try {
-            // file.close();
-            // } catch (Exception e) {
-            // }
-            // }
-            // // Close connection to server
-            // if (is != null) {
-            // try {
-            // is.close();
-            // } catch (Exception e) {
-            // }
-            // }
-            // }
-
-            // return download;
             return null;
         }
 
@@ -931,20 +773,14 @@ public class DownloadManagerService extends Service {
         protected Payload doInBackground(Payload... args) {
             super.doInBackground(args);
             Payload data = doInBackgroundLoadDeck(args);
-            if (data.returnType == 0) {// DeckTask.DECK_LOADED) {
+            if (data.returnType == 0) {
                 HashMap<String, Object> results = (HashMap<String, Object>) data.result;
                 Decks deck = (Decks) results.get("deck");
-                // if (!deck.isUnpackNeeded()) {
-                // data.success = true;
-                // return data;
-                // }
-                // deck.beforeUpdateCards();
-                // deck.updateAllCards();
                 SharedDeckDownload download = (SharedDeckDownload) args[0].data[0];
                 SharedPreferences pref = AnkiDroidApp.getSharedPrefs(getBaseContext());
                 String updatedCardsPref = "numUpdatedCards:" + mDestination + "/tmp/" + download.getFilename()
                         + ".anki.updating";
-                long totalCards = 0;// deck.cardCount();
+                long totalCards = 0;
                 download.setNumTotalCards((int) totalCards);
                 long updatedCards = pref.getLong(updatedCardsPref, 0);
                 download.setNumUpdatedCards((int) updatedCards);
@@ -956,7 +792,6 @@ public class DownloadManagerService extends Service {
                 long batchStart;
                 while (updatedCards < totalCards && download.getStatus() == SharedDeckDownload.STATUS_UPDATING) {
                     batchStart = System.currentTimeMillis();
-                    // updatedCards = deck.updateAllCardsFromPosition(updatedCards, batchSize);
                     Editor editor = pref.edit();
                     editor.putLong(updatedCardsPref, updatedCards);
                     editor.commit();
@@ -980,7 +815,6 @@ public class DownloadManagerService extends Service {
                     data.success = false;
                 }
                 Log.i(AnkiDroidApp.TAG, "Time to update deck = " + download.getEstTimeToCompletion() + " sec.");
-                // deck.afterUpdateCards();
             } else {
                 data.success = false;
             }
@@ -999,10 +833,6 @@ public class DownloadManagerService extends Service {
             }
             avgBatchTime /= usedForAvg;
             download.setEstTimeToCompletion(Math.max(0, mTotalBatches - currentBatch - 1) * avgBatchTime / 1000.0);
-            // Log.i(AnkiDroidApp.TAG, "TotalBatches: " + totalBatches + " Current: " + currentBatch + " LastBatch: " +
-            // lastBatchTime/1000.0 + " RunningAvg: " + avgBatchTime/1000.0 + " Elapsed: " + elapsedTime/1000.0 +
-            // " TotalEstimated: " + (elapsedTime + Math.max(0, totalBatches - currentBatch - 1) * avgBatchTime) /
-            // 1000.0 + " sec");
         }
 
 
@@ -1015,29 +845,24 @@ public class DownloadManagerService extends Service {
             Log.i(AnkiDroidApp.TAG, "loadDeck - SD card mounted and existent file -> Loading deck...");
             try {
                 // Open the right deck.
-                Decks deck = null;// DeckManager.getDeck(deckFilename, DeckManager.REQUESTING_ACTIVITY_DOWNLOADMANAGER);
+                Decks deck = null;
                 // Start by getting the first card and displaying it.
-                // Card card = deck.getCard();
                 Log.i(AnkiDroidApp.TAG, "Deck loaded!");
 
                 // Set the result
-                // data.returnType = DeckTask.DECK_LOADED;
                 HashMap<String, Object> results = new HashMap<String, Object>();
                 results.put("deck", deck);
-                // results.put("card", card);
                 results.put("position", download.getNumUpdatedCards());
                 data.result = results;
                 return data;
             } catch (SQLException e) {
                 Log.i(AnkiDroidApp.TAG, "The database " + deckFilename + " could not be opened = " + e.getMessage());
                 data.success = false;
-                // data.returnType = DeckTask.DECK_NOT_LOADED;
                 data.exception = e;
                 return data;
             } catch (CursorIndexOutOfBoundsException e) {
                 Log.i(AnkiDroidApp.TAG, "The deck has no cards = " + e.getMessage());
                 data.success = false;
-                // data.returnType = DeckTask.DECK_EMPTY;
                 data.exception = e;
                 return data;
             }
@@ -1049,8 +874,6 @@ public class DownloadManagerService extends Service {
             super.onPostExecute(result);
             HashMap<String, Object> results = (HashMap<String, Object>) result.result;
             Decks deck = (Decks) results.get("deck");
-            // Close the previously opened deck.
-            // DeckManager.closeDeck(deck.getDeckPath());
 
             SharedDeckDownload download = (SharedDeckDownload) result.data[0];
             SharedPreferences pref = AnkiDroidApp.getSharedPrefs(getBaseContext());
@@ -1096,10 +919,4 @@ public class DownloadManagerService extends Service {
             stopIfFinished();
         }
     }
-
-    // To test when the service is alive
-    /*
-     * class RunTask implements Runnable { public void run() { Log.i(AnkiDroidApp.TAG, "Service running..."); ++counter;
-     * if(serviceHandler != null) { serviceHandler.postDelayed( this, 1000L ); } } }
-     */
 }

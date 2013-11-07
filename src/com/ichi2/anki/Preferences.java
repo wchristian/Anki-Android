@@ -74,7 +74,6 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
     private static final int DIALOG_HEBREW_FONT = 3;
     private static final int DIALOG_WRITE_ANSWERS = 4;
 
-    // private boolean mVeecheckStatus;
     private Collection mCol;
     private PreferenceManager mPrefMan;
     private CheckBoxPreference zoomCheckboxPreference;
@@ -98,7 +97,7 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
     private static String[] mShowValueInSummList = { "language", "dictionary", "reportErrorMode",
             "minimumCardsDueForNotification", "gestureShake", "gestureSwipeUp", "gestureSwipeDown", "gestureSwipeLeft",
             "gestureSwipeRight", "gestureDoubleTap", "gestureTapTop", "gestureTapBottom", "gestureTapRight",
-            "gestureLongclick", "gestureTapLeft", "newSpread", "useCurrent"};//, "theme" };
+            "gestureLongclick", "gestureTapLeft", "newSpread", "useCurrent"};
     private static String[] mShowValueInSummSeek = { "relativeDisplayFontSize", "relativeCardBrowserFontSize",
             "relativeImageSize", "answerButtonSize", "whiteBoardStrokeWidth", "minShakeIntensity", "swipeSensibility",
             "timeoutAnswerSeconds", "timeoutQuestionSeconds", "animationDuration", "backupMax", "dayOffset" };
@@ -144,7 +143,6 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
         asyncModePreference = (CheckBoxPreference) getPreferenceScreen().findPreference("asyncMode");
         eInkDisplayPreference = (CheckBoxPreference) getPreferenceScreen().findPreference("eInkDisplay");
         fadeScrollbars = (CheckBoxPreference) getPreferenceScreen().findPreference("fadeScrollbars");
-//        ListPreference listpref = (ListPreference) getPreferenceScreen().findPreference("theme");
         convertFenText = (CheckBoxPreference) getPreferenceScreen().findPreference("convertFenText");
         fixHebrewText = (CheckBoxPreference) getPreferenceScreen().findPreference("fixHebrewText");
         syncAccount = (Preference) getPreferenceScreen().findPreference("syncAccount");
@@ -155,8 +153,6 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
         useCurrent = (ListPreference) getPreferenceScreen().findPreference("useCurrent");
         newSpread = (ListPreference) getPreferenceScreen().findPreference("newSpread");
         dayOffset = (SeekBarPreference) getPreferenceScreen().findPreference("dayOffset");
-//        String theme = listpref.getValue();
-//        animationsCheckboxPreference.setEnabled(theme.equals("2") || theme.equals("3"));
         zoomCheckboxPreference.setEnabled(!swipeCheckboxPreference.isChecked());
         
         initializeLanguageDialog();

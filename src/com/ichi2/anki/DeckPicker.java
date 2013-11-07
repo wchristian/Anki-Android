@@ -277,35 +277,8 @@ public class DeckPicker extends FragmentActivity {
                     showDialog(DIALOG_DELETE_DECK);                		
                     return;
                 case CONTEXT_MENU_RESET_LANGUAGE:
-                    // resetDeckLanguages(data.get("filepath"));
                     return;
                 case CONTEXT_MENU_CUSTOM_DICTIONARY:
-                    // String[] dicts = res.getStringArray(R.array.dictionary_labels);
-                    // String[] vals = res.getStringArray(R.array.dictionary_values);
-                    // int currentSet = MetaDB.getLookupDictionary(DeckPicker.this, data.get("filepath"));
-                    //
-                    // mCurrentDeckPath = data.get("filepath");
-                    // String[] labels = new String[dicts.length + 1];
-                    // mDictValues = new int[dicts.length + 1];
-                    // int currentChoice = 0;
-                    // labels[0] = res.getString(R.string.deckpicker_select_dictionary_default);
-                    // mDictValues[0] = -1;
-                    // for (int i = 1; i < labels.length; i++) {
-                    // labels[i] = dicts[i-1];
-                    // mDictValues[i] = Integer.parseInt(vals[i-1]);
-                    // if (currentSet == mDictValues[i]) {
-                    // currentChoice = i;
-                    // }
-                    // }
-                    // StyledDialog.Builder builder = new StyledDialog.Builder(DeckPicker.this);
-                    // builder.setTitle(res.getString(R.string.deckpicker_select_dictionary_title));
-                    // builder.setSingleChoiceItems(labels, currentChoice, new DialogInterface.OnClickListener() {
-                    // public void onClick(DialogInterface dialog, int item) {
-                    // MetaDB.storeLookupDictionary(DeckPicker.this, mCurrentDeckPath, mDictValues[item]);
-                    // }
-                    // });
-                    // StyledDialog alert = builder.create();
-                    // alert.show();
                     return;
                 case CONTEXT_MENU_RENAME_DECK:
                     StyledDialog.Builder builder2 = new StyledDialog.Builder(DeckPicker.this);
@@ -314,7 +287,6 @@ public class DeckPicker extends FragmentActivity {
                     mDialogEditText = (EditText) new EditText(DeckPicker.this);
                     mDialogEditText.setSingleLine();
                     mDialogEditText.setText(AnkiDroidApp.getCol().getDecks().name(mCurrentDid));
-                    // mDialogEditText.setFilters(new InputFilter[] { mDeckNameFilter });
                     builder2.setView(mDialogEditText, false, false);
                     builder2.setPositiveButton(res.getString(R.string.rename), new DialogInterface.OnClickListener() {
 
@@ -348,9 +320,6 @@ public class DeckPicker extends FragmentActivity {
                     builder2.create().show();
                     return;
                 case CONTEXT_MENU_DECK_SUMMARY:
-                    // mStatisticType = 0;
-                    // DeckTask.launchDeckTask(DeckTask.TASK_TYPE_LOAD_STATISTICS, mLoadStatisticsHandler, new
-                    // DeckTask.TaskData(DeckPicker.this, new String[]{data.get("filepath")}, mStatisticType, 0));
                     return;
             }
         }
@@ -406,7 +375,6 @@ public class DeckPicker extends FragmentActivity {
                 }
             }
             if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                // mProgressDialog.setTitle((String) values[0]);
                 mProgressDialog.setMessage(currentMessage + "\n"
                         + res.getString(R.string.sync_up_down_size, countUp / 1024, countDown / 1024));
             }
@@ -676,15 +644,11 @@ public class DeckPicker extends FragmentActivity {
                 }
             }
             if (result.getBoolean()) {
-                // if (mStatisticType == Statistics.TYPE_DECK_SUMMARY) {
-                // Statistics.showDeckSummary(DeckPicker.this);
-                // } else {
                 Intent intent = new Intent(DeckPicker.this, com.ichi2.charts.ChartBuilder.class);
                 startActivity(intent);
                 if (AnkiDroidApp.SDK_VERSION > 4) {
                     ActivityTransitionAnimation.slide(DeckPicker.this, ActivityTransitionAnimation.DOWN);
                 }
-                // }
             }
         }
 
@@ -931,8 +895,6 @@ public class DeckPicker extends FragmentActivity {
         Themes.applyTheme(this);
         super.onCreate(savedInstanceState);
 
-        // mStartedByBigWidget = intent.getIntExtra(EXTRA_START, EXTRA_START_NOTHING);
-
         SharedPreferences preferences = restorePreferences();
 
         // activate broadcast messages if first start of a day
@@ -940,10 +902,6 @@ public class DeckPicker extends FragmentActivity {
             preferences.edit().putBoolean("showBroadcastMessageToday", true).commit();
         }
         preferences.edit().putLong("lastTimeOpened", System.currentTimeMillis()).commit();
-
-        // if (intent != null && intent.hasExtra(EXTRA_DECK_ID)) {
-        // openStudyOptions(intent.getLongExtra(EXTRA_DECK_ID, 1));
-        // }
 
         BroadcastMessages.checkForNewMessages(this);
 
@@ -1026,30 +984,6 @@ public class DeckPicker extends FragmentActivity {
                 		return true;
                 	}
                 }
-                    // } else if (view.getId() == R.id.deckpicker_bar_mat || view.getId() == R.id.deckpicker_bar_all) {
-                    // if (text.length() > 0 && !text.equals("-1.0")) {
-                    // View parent = (View)view.getParent().getParent();
-                    // if (text.equals("-2")) {
-                    // parent.setVisibility(View.GONE);
-                    // } else {
-                    // Utils.updateProgressBars(view, (int) UIUtils.getDensityAdjustedValue(DeckPicker.this, 3.4f),
-                    // (int) (Double.parseDouble(text) * ((View)view.getParent().getParent().getParent()).getHeight()));
-                    // if (parent.getVisibility() == View.INVISIBLE) {
-                    // parent.setVisibility(View.VISIBLE);
-                    // parent.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN, 500, 0));
-                    // }
-                    // }
-                    // }
-                    // return true;
-                    // } else if (view.getVisibility() == View.INVISIBLE) {
-                    // if (!text.equals("-1")) {
-                    // view.setVisibility(View.VISIBLE);
-                    // view.setAnimation(ViewAnimation.fade(ViewAnimation.FADE_IN, 500, 0));
-                    // return false;
-                    // }
-                    // } else if (text.equals("-1")){
-                    // view.setVisibility(View.INVISIBLE);
-                    // return false;
                 return false;
             }
         });
@@ -1093,13 +1027,11 @@ public class DeckPicker extends FragmentActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
       super.onSaveInstanceState(savedInstanceState);
       savedInstanceState.putLong("mCurrentDid", mCurrentDid);
-//      savedInstanceState.putSerializable("mDeckList", mDeckList);
     }
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
       super.onRestoreInstanceState(savedInstanceState);
       mCurrentDid = savedInstanceState.getLong("mCurrentDid");
-//      mDeckList = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("mDeckList");
     }
 
     private void loadCollection() {
@@ -1231,11 +1163,6 @@ public class DeckPicker extends FragmentActivity {
         mLastTimeOpened = preferences.getLong("lastTimeOpened", 0);
         mSwipeEnabled = AnkiDroidApp.initiateGestures(this, preferences);
 
-        // mInvertedColors = preferences.getBoolean("invertedColors", false);
-        // mSwap = preferences.getBoolean("swapqa", false);
-        // mLocale = preferences.getString("language", "");
-        // setLanguage(mLocale);
-
         return preferences;
     }
 
@@ -1268,8 +1195,7 @@ public class DeckPicker extends FragmentActivity {
             }
         } else if (!AnkiDroidApp.isSdCardMounted()) {
             showDialog(DIALOG_SD_CARD_NOT_MOUNTED);
-        } else if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {// && !preferences.getBoolean("dontShowLowMemory",
-                                                                   // false)) {
+        } else if (!BackupManager.enoughDiscSpace(mPrefDeckPath)) {
             showDialog(DIALOG_NO_SPACE_LEFT);
         } else if (preferences.getBoolean("noSpaceLeft", false)) {
             showDialog(DIALOG_BACKUP_NO_SPACE_LEFT);
@@ -1547,28 +1473,6 @@ public class DeckPicker extends FragmentActivity {
                 dialog = builder.create();
                 break;
 
-            // case DIALOG_USER_NOT_LOGGED_IN_DOWNLOAD:
-            // if (id == DIALOG_USER_NOT_LOGGED_IN_SYNC) {
-            // } else {
-            // builder.setPositiveButton(res.getString(R.string.log_in),
-            // new DialogInterface.OnClickListener() {
-            //
-            // @Override
-            // public void onClick(DialogInterface dialog, int which) {
-            // Intent myAccount = new Intent(DeckPicker.this,
-            // MyAccount.class);
-            // myAccount.putExtra("notLoggedIn", true);
-            // startActivityForResult(myAccount, LOG_IN_FOR_DOWNLOAD);
-            // if (UIUtils.getApiLevel() > 4) {
-            // ActivityTransitionAnimation.slide(DeckPicker.this, ActivityTransitionAnimation.LEFT);
-            // }
-            // }
-            // });
-            // }
-            // builder.setNegativeButton(res.getString(R.string.cancel), null);
-            // dialog = builder.create();
-            // break;
-
             case DIALOG_NO_CONNECTION:
                 builder.setTitle(res.getString(R.string.connection_error_title));
                 builder.setIcon(R.drawable.ic_dialog_alert);
@@ -1646,12 +1550,6 @@ public class DeckPicker extends FragmentActivity {
 
             case DIALOG_CONTEXT_MENU:
                 String[] entries = new String[3];
-                // entries[CONTEXT_MENU_DECK_SUMMARY] =
-                // "XXXsum";//res.getStringArray(R.array.statistics_type_labels)[0];
-                // entries[CONTEXT_MENU_CUSTOM_DICTIONARY] =
-                // res.getString(R.string.contextmenu_deckpicker_set_custom_dictionary);
-                // entries[CONTEXT_MENU_RESET_LANGUAGE] =
-                // res.getString(R.string.contextmenu_deckpicker_reset_language_assignments);
                 entries[CONTEXT_MENU_COLLAPSE_DECK] = res.getString(R.string.contextmenu_deckpicker_collapse_deck);
                 entries[CONTEXT_MENU_RENAME_DECK] = res.getString(R.string.contextmenu_deckpicker_rename_deck);
                 entries[CONTEXT_MENU_DELETE_DECK] = res.getString(R.string.contextmenu_deckpicker_delete_deck);
@@ -1748,13 +1646,6 @@ public class DeckPicker extends FragmentActivity {
                         loadCollection();
                     }
                 });
-                // builder.setNegativeButton(res.getString(R.string.dont_show_again), new
-                // DialogInterface.OnClickListener() {
-                // @Override
-                // public void onClick(DialogInterface arg0, int arg1) {
-                // PrefSettings.getSharedPrefs(getBaseContext()).edit().putBoolean("dontShowLowMemory", true).commit();
-                // }
-                // });
                 builder.setCancelable(true);
                 builder.setOnCancelListener(new OnCancelListener() {
                     @Override
@@ -1856,13 +1747,6 @@ public class DeckPicker extends FragmentActivity {
                         finishWithAnimation();
                     }
                 });
-                // builder.setNegativeButton(res.getString(R.string.dont_show_again), new
-                // DialogInterface.OnClickListener() {
-                // @Override
-                // public void onClick(DialogInterface arg0, int arg1) {
-                // PrefSettings.getSharedPrefs(getBaseContext()).edit().putBoolean("dontShowLowMemory", true).commit();
-                // }
-                // });
                 builder.setCancelable(true);
                 builder.setOnCancelListener(new OnCancelListener() {
                     @Override
@@ -2180,7 +2064,6 @@ public class DeckPicker extends FragmentActivity {
     public void setStudyContentView(long deckId, Bundle cramConfig) {
         StudyOptionsFragment details = StudyOptionsFragment.newInstance(deckId, false, cramConfig);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//      ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
         ft.replace(R.id.studyoptions_fragment, details);
         ft.commit();
@@ -2237,26 +2120,6 @@ public class DeckPicker extends FragmentActivity {
         return loadDeckIntent;
     }
 
-
-    // private void handleRestoreDecks(boolean reloadIfEmpty) {
-    // if (mBrokenDecks.size() != 0) {
-    // while (true) {
-    // mCurrentDeckPath = mBrokenDecks.remove(0);
-    // if (!mAlreadyDealtWith.contains(mCurrentDeckPath) || mBrokenDecks.size() == 0) {
-    // break;
-    // }
-    // }
-    // mDeckNotLoadedAlert.setMessage(getResources().getString(R.string.open_deck_failed, "\'" + new
-    // File(mCurrentDeckPath).getName() + "\'", BackupManager.BROKEN_DECKS_SUFFIX.replace("/", ""),
-    // getResources().getString(R.string.repair_deck)));
-    // mDeckNotLoadedAlert.show();
-    // } else if (reloadIfEmpty) {
-    // if (mRestoredOrDeleted) {
-    // mBrokenDecks = new ArrayList<String>();
-    // // populateDeckList(mPrefDeckPath);
-    // }
-    // }
-    // }
 
     private void sync() {
         sync(null, 0);
@@ -2495,7 +2358,6 @@ public class DeckPicker extends FragmentActivity {
                 builder2.setTitle(res.getString(R.string.new_deck));
 
                 mDialogEditText = (EditText) new EditText(DeckPicker.this);
-                // mDialogEditText.setFilters(new InputFilter[] { mDeckNameFilter });
                 builder2.setView(mDialogEditText, false, false);
                 builder2.setPositiveButton(res.getString(R.string.create), new DialogInterface.OnClickListener() {
 
@@ -2525,7 +2387,6 @@ public class DeckPicker extends FragmentActivity {
                     cramDeckName = "Cram " + n;
                 }
                 mDialogEditText.setText(cramDeckName);
-                // mDialogEditText.setFilters(new InputFilter[] { mDeckNameFilter });
                 builder3.setView(mDialogEditText, false, false);
                 builder3.setPositiveButton(res.getString(R.string.create), new DialogInterface.OnClickListener() {
 
@@ -2672,17 +2533,6 @@ public class DeckPicker extends FragmentActivity {
             } else if (!mPrefDeckPath.equals(oldPath)) {
             	loadCollection();
             }
-            // if (resultCode == StudyOptions.RESULT_RESTART) {
-            // setResult(StudyOptions.RESULT_RESTART);
-            // finishWithAnimation();
-            // } else {
-            // SharedPreferences preferences = PrefSettings.getSharedPrefs(getBaseContext());
-            // BackupManager.initBackup();
-            // if (!mPrefDeckPath.equals(preferences.getString("deckPath", AnkiDroidApp.getStorageDirectory())) ||
-            // mPrefDeckOrder != Integer.parseInt(preferences.getString("deckOrder", "0"))) {
-            // // populateDeckList(preferences.getString("deckPath", AnkiDroidApp.getStorageDirectory()));
-            // }
-            // }
         } else if (requestCode == REPORT_FEEDBACK && resultCode == RESULT_OK) {
         } else if (requestCode == LOG_IN_FOR_SYNC && resultCode == RESULT_OK) {
             sync();
@@ -2760,23 +2610,6 @@ public class DeckPicker extends FragmentActivity {
         }, new DeckTask.TaskData(AnkiDroidApp.getCol()));
     }
 
-
-    // private void resetDeckLanguages(String deckPath) {
-    // if (MetaDB.resetDeckLanguages(this, deckPath)) {
-    // Themes.showThemedToast(this, getResources().getString(R.string.contextmenu_deckpicker_reset_reset_message),
-    // true);
-    // }
-    // }
-    //
-    //
-    // public void openSharedDeckPicker() {
-    // // deckLoaded = false;
-    // startActivityForResult(new Intent(this, SharedDeckPicker.class), DOWNLOAD_SHARED_DECK);
-    // if (UIUtils.getApiLevel() > 4) {
-    // ActivityTransitionAnimation.slide(this, ActivityTransitionAnimation.RIGHT);
-    // }
-    // }
-
     public void handleDbError() {
     	AnkiDatabaseManager.closeDatabase(AnkiDroidApp.getCollectionPath());
         DeckTask.launchDeckTask(DeckTask.TASK_TYPE_RESTORE_IF_MISSING, new DeckTask.TaskListener() {
@@ -2819,19 +2652,10 @@ public class DeckPicker extends FragmentActivity {
             intent.putExtra("index", deckId);
             intent.putExtra("cramInitialConfig", cramInitialConfig);
             intent.setClass(this, StudyOptionsActivity.class);
-            // if (deckId != 0) {
-            // intent.putExtra(EXTRA_DECK_ID, deckId);
-            // }
             startActivityForResult(intent, SHOW_STUDYOPTIONS);
-            // if (deckId != 0) {
-            // if (UIUtils.getApiLevel() > 4) {
-            // ActivityTransitionAnimation.slide(this, ActivityTransitionAnimation.NONE);
-            // }
-            // } else {
             if (AnkiDroidApp.SDK_VERSION > 4) {
                 ActivityTransitionAnimation.slide(this, ActivityTransitionAnimation.LEFT);
             }
-            // }
         }
     }
 
@@ -2940,8 +2764,6 @@ public class DeckPicker extends FragmentActivity {
             m.put("lrn", ((Integer) d[3]).toString());
             m.put("rev", ((Integer) d[4]).toString());
             m.put("dyn", ((Boolean) d[5]) ? "d1" : "d0");
-            // m.put("complMat", ((Float)d[5]).toString());
-            // m.put("complAll", ((Float)d[6]).toString());
             if (name.length == 1) {
                 due += Integer.parseInt(m.get("new")) + Integer.parseInt(m.get("lrn")) + Integer.parseInt(m.get("rev"));
                 // top position
@@ -2986,16 +2808,6 @@ public class DeckPicker extends FragmentActivity {
         WidgetStatus.update(this, decks);
     }
 
-    // private void restartApp() {
-    // // restarts application in order to apply new themes or localisations
-    // Intent i = getBaseContext().getPackageManager()
-    // .getLaunchIntentForPackage(getBaseContext().getPackageName());
-    // mCompat.invalidateOptionsMenu(this);
-    // MetaDB.closeDB();
-    // StudyOptions.this.finishWithAnimation();
-    // startActivity(i);
-    // }
-
     // ----------------------------------------------------------------------------
     // INNER CLASSES
     // ----------------------------------------------------------------------------
@@ -3037,19 +2849,6 @@ public class DeckPicker extends FragmentActivity {
             return false;
         }
     }
-
-
-    // @Override
-    // protected void onNewIntent(Intent intent) {
-    // super.onNewIntent(intent);
-    // String deck = intent.getStringExtra(EXTRA_DECK);
-    // Log.d(AnkiDroidApp.TAG, "StudyOptions.onNewIntent: " + intent
-    // + ", deck=" + deck);
-    // // if (deck != null && !deck.equals(mDeckFilename)) {
-    // // mDeckFilename = deck;
-    // // // loadPreviousDeck();
-    // // }
-    // }
 
     public static String readableDeckName(String[] name) {
         int len = name.length;

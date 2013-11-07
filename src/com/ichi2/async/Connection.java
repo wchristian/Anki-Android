@@ -264,15 +264,6 @@ public class Connection extends BaseAsyncTask<Connection.Payload, Object, Connec
             case TASK_TYPE_REGISTER:
                 return doInBackgroundRegister(data);
 
-                // case TASK_TYPE_GET_SHARED_DECKS:
-                // return doInBackgroundGetSharedDecks(data);
-                //
-                // case TASK_TYPE_GET_PERSONAL_DECKS:
-                // return doInBackgroundGetPersonalDecks(data);
-                //
-                // case TASK_TYPE_SYNC_ALL_DECKS:
-                // return doInBackgroundSyncAllDecks(data);
-
             case TASK_TYPE_SYNC:
                 return doInBackgroundSync(data);
 
@@ -631,10 +622,8 @@ public class Connection extends BaseAsyncTask<Connection.Payload, Object, Connec
             }
             // save and note success state
             if (retCode.equals("noChanges")) {
-                // publishProgress(R.string.sync_no_changes_message);
                 noChanges = true;
             } else {
-                // publishProgress(R.string.sync_database_success);
             }
         } else {
             try {
@@ -819,28 +808,24 @@ public class Connection extends BaseAsyncTask<Connection.Payload, Object, Connec
 
         Decks deck = (Decks) data.data[0];
         data.result = deck; // pass it to the return object so we close the deck in the deck picker
-        String syncName = "";// deck.getDeckName();
+        String syncName = "";
 
         data.success = false;
         data.data = new Object[] { 0, 0, 0 };
-        // if (!deck.hasKey("mediaURL")) {
-        // data.success = true;
-        // return data;
-        // }
-        String urlbase = "";// deck.getVar("mediaURL");
+        String urlbase = "";
         if (urlbase.equals("")) {
             data.success = true;
             return data;
         }
 
-        String mdir = "";// deck.mediaDir(true);
+        String mdir = "";
         int totalMissing = 0;
         int missing = 0;
         int grabbed = 0;
 
         Cursor cursor = null;
         try {
-            cursor = null;// deck.getDB().getDatabase().rawQuery("SELECT filename, originalPath FROM media", null);
+            cursor = null;
             String path = null;
             String f = null;
             while (cursor.moveToNext()) {
@@ -893,7 +878,7 @@ public class Connection extends BaseAsyncTask<Connection.Payload, Object, Connec
 
                     // Verify with checksum
                     sum = missingSums.get(file);
-                    if (true) {// sum.equals("") || sum.equals(Utils.fileChecksum(path))) {
+                    if (true) {
                         grabbed++;
                     } else {
                         // Download corrupted, delete file
@@ -1090,64 +1075,6 @@ public class Connection extends BaseAsyncTask<Connection.Payload, Object, Connec
             success = true;
         }
     }
-
-    // public static void cancelGetSharedDecks() {
-    // HttpSyncer.resetSharedDecks();
-    // sInstance.cancel(true);
-    // }
-
-    // private Payload doInBackgroundGetSharedDecks(Payload data) {
-    // // DeckManager.closeMainDeck();
-    // try {
-    // data.result = HttpSyncer.getSharedDecks();
-    // } catch (OutOfMemoryError e) {
-    // data.success = false;
-    // data.returnType = RETURN_TYPE_OUT_OF_MEMORY;
-    // Log.e(AnkiDroidApp.TAG, "doInBackgroundGetSharedDecks: OutOfMemoryError: " + e);
-    // } catch (Exception e) {
-    // data.success = false;
-    // data.exception = e;
-    // Log.e(AnkiDroidApp.TAG, "doInBackgroundGetSharedDecks - Error getting shared decks = " + e.getMessage());
-    // Log.e(AnkiDroidApp.TAG, Log.getStackTraceString(e));
-    // }
-    // return data;
-    // }
-    //
-    //
-    // private Payload doInBackgroundGetPersonalDecks(Payload data) {
-    // Resources res = sContext.getResources();
-    // // DeckManager.closeMainDeck();
-    // try {
-    // String username = (String) data.data[0];
-    // String password = (String) data.data[1];
-    // HttpSyncer server = new HttpSyncer(username, password);
-    //
-    // int connectResult = server.connect(false);
-    // if (connectResult != HttpSyncer.LOGIN_OK) {
-    // if (connectResult == HttpSyncer.LOGIN_INVALID_USER_PASS) {
-    // data.result = res.getString(R.string.invalid_username_password);
-    // } else if (connectResult == HttpSyncer.LOGIN_OLD_VERSION) {
-    // data.result = String.format(res.getString(R.string.sync_log_old_version),
-    // res.getString(R.string.link_ankidroid));
-    // } else if (connectResult == HttpSyncer.LOGIN_TOO_BUSY) {
-    // data.result = res.getString(R.string.sync_too_busy);
-    // } else {
-    // data.result = res.getString(R.string.login_generic_error);
-    // }
-    // data.success = false;
-    // return data;
-    // }
-    //
-    // data.result = server.getPersonalDecks();
-    // } catch (Exception e) {
-    // data.success = false;
-    // data.result = null;
-    // data.exception = e;
-    // Log.e(AnkiDroidApp.TAG, "doInBackgroundGetPersonalDecks - Error getting personal decks = " + e.getMessage());
-    // Log.e(AnkiDroidApp.TAG, Log.getStackTraceString(e));
-    // }
-    // return data;
-    // }
 
     public static final class OldAnkiDeckFilter implements FileFilter {
         @Override

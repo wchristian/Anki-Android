@@ -521,23 +521,6 @@ public class Info extends Activity {
                         break;
                 }
 
-//                File[] fileList = (new File(AnkiDroidApp.getCurrentAnkiDroidDirectory())).listFiles(new OldAnkiDeckFilter());
-//                StringBuilder fsb = new StringBuilder();
-//                fsb.append("<ul>");
-//                for (File f : fileList) {
-//                	fsb.append("<li>").append(f.getName().replace(".anki", "")).append("</li>");
-//                }
-//            	fsb.append("</ul>");
-//                sb.append(res.getString(R.string.upgrade_decks_message, fsb.toString()));
-//                sb.append("<ul><li>");
-//                sb.append(res.getString(R.string.upgrade_decks_message_pos1,
-//                		AnkiDroidApp.getCurrentAnkiDroidDirectory()));
-//                sb.append("</li><li>");
-//                sb.append(res.getString(R.string.upgrade_decks_message_pos2, res.getString(R.string.link_anki)));
-//                sb.append("</li><li>");
-//                sb.append(res.getString(R.string.upgrade_decks_message_pos3));
-//                sb.append("</li></ul>");
-//                sb.append(res.getString(R.string.upgrade_decks_message_finish));
                 sb.append("</body></html>");
                 mWebView.loadDataWithBaseURL("", sb.toString(), "text/html", "utf-8", null);
 
@@ -974,7 +957,6 @@ public class Info extends Activity {
         public void onProgressUpdate(Object... values) {
             countDown = ((Integer) values[0]).intValue();
             if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                // mProgressDialog.setTitle((String) values[0]);
                 mProgressDialog.setMessage(getResources().getString(R.string.download_deck, countDown));
             }
         }
@@ -1072,7 +1054,6 @@ public class Info extends Activity {
                 }
             }
             if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                // mProgressDialog.setTitle((String) values[0]);
                 mProgressDialog.setMessage(currentMessage + "\n"
                         + res.getString(R.string.sync_up_down_size, countUp / 1024, countDown / 1024));
             }

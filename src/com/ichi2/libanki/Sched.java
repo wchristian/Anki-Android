@@ -1917,8 +1917,6 @@ public class Sched {
         StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
         sb.setSpan(boldSpan, 0, sb.length(), 0);
         sb.append(_nextDueMsg(context));
-        // sb.append("\n\n");
-        // sb.append(_tomorrowDueMsg(context));
         return sb;
     }
 

@@ -38,10 +38,6 @@ public class Stats {
     public static final int TYPE_FORECAST = 0;
     public static final int TYPE_REVIEW_COUNT = 1;
     public static final int TYPE_REVIEW_TIME = 2;
-    // public static final int TYPE_INTERVALS = 2;
-    // public static final int TYPE_REVIEWS = 3;
-    // public static final int TYPE_REVIEWING_TIME = 4;
-    // public static final int TYPE_DECK_SUMMARY = 5;
 
     private static Stats sCurrentInstance;
 
@@ -326,29 +322,6 @@ public class Stats {
     }
 
 
-    /**
-     * Intervals ***********************************************************************************************
-     */
-
-    // public int[][] intervals(int limit, int chunk) {
-    // ArrayList<int[]> ivls = new ArrayList<int[]>();
-    // Cursor cur = null;
-    // try {
-    // cur = mDeck.getDB().getDatabase().rawQuery(
-    // "SELECT ivl / " + chunk + " AS grp, count() FROM cards " + "WHERE queue = 2 " + _limit()
-    // + " AND grp <= " + limit + " GROUP BY grp ORDER BY grp", null);
-    // while (cur.moveToNext()) {
-    // ivls.add(new int[] { cur.getInt(0), cur.getInt(1) });
-    // }
-    // } finally {
-    // if (cur != null && !cur.isClosed()) {
-    // cur.close();
-    // }
-    // }
-    // return (int[][]) ivls.toArray(new int[ivls.size()][ivls.get(0).length]);
-    // }
-    //
-    //
     /**
      * Tools ***********************************************************************************************
      */

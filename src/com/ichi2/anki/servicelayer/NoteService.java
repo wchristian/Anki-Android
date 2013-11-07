@@ -125,29 +125,11 @@ public class NoteService {
      * @param note
      */
     public static void saveMedia(final MultimediaEditableNote noteNew) {
-        // if (noteNew.getModelId() == noteOld.getModelId())
-        // {
-        // int fieldCount = noteNew.getNumberOfFields();
-        // for (int i = 0; i < fieldCount; i++)
-        // {
-        // IField newField = noteNew.getField(i);
-        // IField oldField = noteOld.getField(i);
-        // if
-        // (newField.getFormattedValue().equals(oldField.getFormattedValue()))
-        // {
-        // continue;
-        // }
-        // importMediaToDirectory(newField);
-        // }
-        // }
-        // else
-        // {
         int fieldCount = noteNew.getNumberOfFields();
         for (int i = 0; i < fieldCount; i++) {
             IField newField = noteNew.getField(i);
             importMediaToDirectory(newField);
         }
-        // }
     }
 
 

@@ -69,11 +69,6 @@ public class Models {
             + "'afmt': \"\", " + "'did': null, " + "'bqfmt': \"\"," + "'bafmt': \"\"," + "'bfont': \"Arial\"," +
             "'bsize': 12 }";
 
-    // /** Regex pattern used in removing tags from text before diff */
-    // private static final Pattern sFactPattern = Pattern.compile("%\\([tT]ags\\)s");
-    // private static final Pattern sModelPattern = Pattern.compile("%\\(modelTags\\)s");
-    // private static final Pattern sTemplPattern = Pattern.compile("%\\(cardModel\\)s");
-
     private Collection mCol;
     private boolean mChanged;
     private HashMap<Long, JSONObject> mModels;
@@ -88,31 +83,9 @@ public class Models {
     private JSONArray mFields;
     private JSONArray mTemplates;
     // BEGIN SQL table entries
-
-    // private Decks mDeck;
-    // private AnkiDb mDb;
     //
     /** Map for compiled Mustache Templates */
     private Map<String, Template> mCmpldTemplateMap = new HashMap<String, Template>();
-
-
-    //
-    // /** Map for convenience and speed which contains FieldNames from current model */
-    // private TreeMap<String, Integer> mFieldMap = new TreeMap<String, Integer>();
-    //
-    // /** Map for convenience and speed which contains Templates from current model */
-    // private TreeMap<Integer, JSONObject> mTemplateMap = new TreeMap<Integer, JSONObject>();
-    //
-    // /** Map for convenience and speed which contains the CSS code related to a Template */
-    // private HashMap<Integer, String> mCssTemplateMap = new HashMap<Integer, String>();
-    //
-    // /**
-    // * The percentage chosen in preferences for font sizing at the time when the css for the CardModels related to
-    // this
-    // * Model was calculated in prepareCSSForCardModels.
-    // */
-    // private transient int mDisplayPercentage = 0;
-    // private boolean mNightMode = false;
 
     /**
      * Saving/loading registry
@@ -175,7 +148,6 @@ public class Models {
             }
         }
         mChanged = true;
-        // runHook("newModel")
     }
 
 
@@ -438,7 +410,6 @@ public class Models {
         JSONArray ja;
         try {
             ja = m.getJSONArray("flds");
-            // TreeMap<Integer, String> map = new TreeMap<Integer, String>();
             Map<String, Pair<Integer, JSONObject>> result = new HashMap<String, Pair<Integer, JSONObject>>();
             for (int i = 0; i < ja.length(); i++) {
                 JSONObject f = ja.getJSONObject(i);
@@ -474,18 +445,6 @@ public class Models {
             throw new RuntimeException(e);
         }
     }
-
-
-    // public int setSortIdx(JSONObject m, int idx) {
-    // try {
-    // mCol.modSchema();
-    // m.put("sortf", idx);
-    // mCol.updateFieldCache(nids(m));
-    // save(m);
-    // } catch (JSONException e) {
-    // throw new RuntimeException(e);
-    // }
-    // }
 
     public void addField(JSONObject m, JSONObject field) {
         // only mod schema if model isn't new
@@ -846,16 +805,6 @@ public class Models {
     private void _syncTemplates(JSONObject m) {
         ArrayList<Long> rem = mCol.genCards(Utils.arrayList2array(nids(m)));
     }
-
-
-    // public TreeMap<Integer, JSONObject> getTemplates() {
-    // return mTemplateMap;
-    // }
-    //
-    //
-    // public JSONObject getTemplate(int ord) {
-    // return mTemplateMap.get(ord);
-    // }
 
     /**
      * Get a compiled template, create it if missing or if args != null

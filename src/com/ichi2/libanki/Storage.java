@@ -349,19 +349,6 @@ public class Storage {
     public static void addIndices(AnkiDb db) {
         _updateIndices(db);
     }
-    
-    /*
-     * Upgrading ************************************************************
-     */
-
-    // public void upgrade(String path) {
-    // // mPath = path;
-    // // _openDB(path);
-    // // upgradeSchema();
-    // // _openCol();
-    // // _upgradeRest();
-    // // return mCol;
-    // }
 
     /*
      * Integrity checking ************************************************************

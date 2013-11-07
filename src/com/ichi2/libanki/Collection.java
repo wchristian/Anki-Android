@@ -254,7 +254,6 @@ public class Collection {
             mDb.setMod(false);
         }
         // undoing non review operation is handled differently in ankidroid
-//        _markOp(name);
         mLastSave = Utils.now();
     }
 

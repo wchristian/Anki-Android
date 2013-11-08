@@ -305,10 +305,11 @@ public class ChartBuilder extends Activity {
         builder.setIcon(android.R.drawable.ic_menu_sort_by_size);
 
         // set items
+        Resources res = context.getResources();
         String[] items = new String[3];
-        items[0] = context.getResources().getString(R.string.stats_forecast);
-        items[1] = context.getResources().getString(R.string.stats_review_count);
-        items[2] = context.getResources().getString(R.string.stats_review_time);
+        items[0] = res.getString(R.string.stats_forecast);
+        items[1] = res.getString(R.string.stats_review_count);
+        items[2] = res.getString(R.string.stats_review_time);
 
         builder.setItems(items, listener);
 
@@ -317,9 +318,8 @@ public class ChartBuilder extends Activity {
         RadioGroup rg = new RadioGroup(context);
         rg.setOrientation(RadioGroup.HORIZONTAL);
         RadioGroup.LayoutParams lp = new RadioGroup.LayoutParams(0, LayoutParams.MATCH_PARENT, 1);
-        Resources res = context.getResources();
         String[] text = res.getStringArray(R.array.stats_period);
-        int height = context.getResources().getDrawable(R.drawable.white_btn_radio).getIntrinsicHeight();
+        int height = res.getDrawable(R.drawable.white_btn_radio).getIntrinsicHeight();
         for (int i = 0; i < statisticRadioButtons.length; i++) {
             statisticRadioButtons[i] = new RadioButton(context);
             statisticRadioButtons[i].setClickable(true);

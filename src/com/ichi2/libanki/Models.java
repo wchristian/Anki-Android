@@ -54,7 +54,7 @@ public class Models {
             + "\\\\usepackage[utf8]{inputenc} " + "\\\\usepackage{amssymb,amsmath} " + "\\\\pagestyle{empty} "
             + "\\\\setlength{\\\\parindent}{0in} " + "\\\\begin{document} " + "\", "
             + "'latexPost': \"\\\\end{document}\", " + "'mod': 0, " + "'usn': 0, " 
-            + "'vers': [], " // FIXME: remove when other clients have caught up 
+            + "'vers': [], " 
             + "'type': "
             + Sched.MODEL_STD + ", " + "'css': \" .card {" + "font-familiy: arial; " + "font-size: 20px; "
             + "text-align: center; " + "color:black; " + "background-color: white; }\"" + "}";

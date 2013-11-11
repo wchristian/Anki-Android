@@ -599,9 +599,6 @@ public class DownloadManagerService extends Service {
                 connection.setDoOutput(true);
                 connection.setUseCaches(false);
                 connection.setRequestMethod("POST");
-                // FIXME: The connection always returns all bytes, regardless of what is indicated in range property, so
-                // resuming downloads of personal decks is not possible at the moment
-                // Fix this when the connection is fixed on AnkiOnline
                 Log.i(AnkiDroidApp.TAG, "Range = " + download.getDownloaded());
                 // connection.setRequestProperty("Range","bytes=" + download.getDownloaded() + "-");
                 connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
@@ -646,9 +643,6 @@ public class DownloadManagerService extends Service {
 
                 // Open file
                 file = new RandomAccessFile(mDestination + "/tmp/" + download.getFilename() + ".anki.tmp", "rw");
-                // FIXME: Uncomment next line when the connection is fixed on AnkiOnline (= when the connection only
-                // returns the bytes specified on the range property)
-                // file.seek(download.getDownloaded());
 
                 iis = new InflaterInputStream(connection.getInputStream());
 

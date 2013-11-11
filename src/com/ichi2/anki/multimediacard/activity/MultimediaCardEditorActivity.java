@@ -569,8 +569,6 @@ public class MultimediaCardEditorActivity extends Activity {
                         } else {
                             // Do not really delete the node here, instead let
                             // the caller deal with deletion.
-                            // FIXME: Since only CardBrowser calls us,
-                            // CardBrowser handles deletion and Listview Update
                             setResult(RESULT_DELETED);
                             finish();
                         }

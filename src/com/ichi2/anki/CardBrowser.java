@@ -477,7 +477,6 @@ public class CardBrowser extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // FIXME:
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == DeckPicker.RESULT_DB_ERROR) {
@@ -552,7 +551,6 @@ public class CardBrowser extends Activity {
                 break;
 
             case DIALOG_CONTEXT_MENU:
-                // FIXME:
                 String[] entries = new String[4];
                 @SuppressWarnings("unused")
                 MenuItem item;
@@ -1074,7 +1072,6 @@ public class CardBrowser extends Activity {
 
         @Override
         public void onPostExecute(DeckTask.TaskData result) {
-            // FIXME:
             searchCards();
             if (mProgressDialog != null && mProgressDialog.isShowing()) {
                 mProgressDialog.dismiss();

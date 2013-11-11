@@ -162,8 +162,6 @@ import java.util.TimeZone;
  * irregularly, and before 45 BC the Julian calendar did not even exist. Prior to the institution of the Gregorian
  * calendar, New Year's Day was March 25. To avoid confusion, this calendar always uses January 1.
  * <p/>
- * TODO Future enhancements: - handle time, and timezones, interconversion with GregorianCalendar dates.
- * <p/>
  * 
  * @author Roedy Green, Canadian Mind Products
  * @version 5.6 2009-12-09 - parsing of String dates is now more relaxed. Now ignores spaces, commas. Accepts single

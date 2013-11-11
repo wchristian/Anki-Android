@@ -1180,7 +1180,6 @@ public class StudyOptionsFragment extends Fragment {
             return;
         }
 
-        // TODO: proper integration of big widget
         if (resultCode == DeckPicker.RESULT_MEDIA_EJECTED) {
             closeStudyOptions(DeckPicker.RESULT_MEDIA_EJECTED);
         } else {
@@ -1208,8 +1207,6 @@ public class StudyOptionsFragment extends Fragment {
                 resetAndUpdateValuesFromDeck();
             } else if (requestCode == REQUEST_REVIEW) {
                 Log.i(AnkiDroidApp.TAG, "Result code = " + resultCode);
-                // TODO: Return to standard scheduler
-                // TODO: handle big widget
                 switch (resultCode) {
                     default:
                         // do not reload counts, if activity is created anew because it has been before destroyed by android
@@ -1354,8 +1351,6 @@ public class StudyOptionsFragment extends Fragment {
                     ActivityTransitionAnimation.slide(getActivity(), ActivityTransitionAnimation.DOWN);
                 }
                 // }
-            } else {
-                // TODO: db error handling
             }
         }
 

@@ -134,7 +134,6 @@ public class ReadText {
         mTts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                // TODO: check if properly initialized (does not work yet)
                 if (status != TextToSpeech.SUCCESS) {
                     int result = mTts.setLanguage(Locale.US);
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {

@@ -267,9 +267,6 @@ public class Anki2Importer {
                 cursor.close();
             }
         }
-        if (dupes != 0) {
-        	// TODO: notify about dupes
-        }
         // add to col
         mDst.getDb().executeMany("INSERT OR REPLACE INTO NOTES VALUES (?,?,?,?,?,?,?,?,?,?,?)", add);
         long[] dis = Utils.arrayList2array(dirty);

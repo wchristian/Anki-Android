@@ -327,7 +327,6 @@ public class DeckOptions extends PreferenceActivity implements OnSharedPreferenc
 
             // @Override On Android 1.5 this is not Override
             public android.content.SharedPreferences.Editor putStringSet(String arg0, Set<String> arg1) {
-                // TODO Auto-generated method stub
                 return null;
             }
             
@@ -424,7 +423,6 @@ public class DeckOptions extends PreferenceActivity implements OnSharedPreferenc
 
         // @Override On Android 1.5 this is not Override
         public Set<String> getStringSet(String arg0, Set<String> arg1) {
-            // TODO Auto-generated method stub
             return null;
         }
 

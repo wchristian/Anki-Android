@@ -503,7 +503,6 @@ public class MultimediaCardEditorActivity extends Activity {
                 if (mCurrentDid != newId) {
                     if (mAddNote) {
                         try {
-                            // TODO: mEditorNote.setDid(newId);
                             mEditorNote.model().put("did", newId);
                             mCol.getModels().setChanged();
                         } catch (JSONException e) {
@@ -628,8 +627,6 @@ public class MultimediaCardEditorActivity extends Activity {
                 mEditorNote = new Note(mCol, currentModel);
                 mEditorNote.model().put("did", mCurrentDid);
             }
-            // TODO take care of tags @see CardEditor setNote(Note)
-
         } catch (Exception e) {
             Log.e("Multimedia Editor", e.getMessage());
 
@@ -654,24 +651,15 @@ public class MultimediaCardEditorActivity extends Activity {
         TaskListener listener = new TaskListener() {
 
             @Override
-            public void onProgressUpdate(TaskData... values) {
-                // TODO Auto-generated method stub
-
-            }
+            public void onProgressUpdate(TaskData... values) {}
 
 
             @Override
-            public void onPreExecute() {
-                // TODO Auto-generated method stub
-
-            }
+            public void onPreExecute() {}
 
 
             @Override
-            public void onPostExecute(TaskData result) {
-                // TODO Auto-generated method stub
-
-            }
+            public void onPostExecute(TaskData result) {}
         };
 
         if (mAddNote) {

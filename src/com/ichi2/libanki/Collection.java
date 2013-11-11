@@ -156,7 +156,6 @@ public class Collection {
 
     public String name() {
         String n = (new File(mPath)).getName().replace(".anki2", "");
-        // TODO:
         return n;
     }
 
@@ -334,11 +333,6 @@ public class Collection {
 
 
     public void modSchema(boolean check) {
-        if (!schemaChanged()) {
-            if (check) {
-                // TODO: ask user
-            }
-        }
         mScm = Utils.intNow(1000);
         setMod();
     }
@@ -1462,7 +1456,6 @@ public class Collection {
         if (problems.size() > 0) {
         	modSchema(false);
         }
-        // TODO: report problems
         return (long) ((oldSize - newSize) / 1024);
     }
 
@@ -1500,7 +1493,6 @@ public class Collection {
 
     /** Check if this collection is valid. */
     public boolean validCollection() {
-    	//TODO: more validation code
     	return mModels.validateModel();
     }
 

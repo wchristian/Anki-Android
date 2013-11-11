@@ -52,7 +52,6 @@ public class ScatterChart extends XYChart {
     size = renderer.getPointSize();
   }
 
-  // TODO: javadoc
   protected void setDatasetRenderer(XYMultipleSeriesDataset dataset,
       XYMultipleSeriesRenderer renderer) {
     super.setDatasetRenderer(dataset, renderer);

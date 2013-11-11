@@ -103,7 +103,6 @@ public class TextField extends FieldBase implements IField {
 
     @Override
     public boolean hasTemporaryMedia() {
-        // TODO Auto-generated method stub
         return false;
     }
 

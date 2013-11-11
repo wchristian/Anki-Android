@@ -431,9 +431,6 @@ public class BasicTextFieldController extends FieldControllerBase implements IFi
 
 
     @Override
-    public void onDestroy() {
-        // TODO Auto-generated method stub
-
-    }
+    public void onDestroy() {}
 
 }

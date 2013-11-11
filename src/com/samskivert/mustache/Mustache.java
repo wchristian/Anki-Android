@@ -108,7 +108,7 @@ public class Mustache
             if (c == '\n') {
                 line++;
                 // if we just parsed an open section or close section task, we'll skip the first
-                // newline character following it, if desired; TODO: handle CR, sigh
+                // newline character following it, if desired
                 if (skipNewline) {
                     skipNewline = false;
                     continue;
@@ -150,17 +150,13 @@ public class Mustache
                         // This tag requires an extra closing '}', we need to skip it
                         skippedExtraBracket = true;
                     } else if (end2 == -1) {
-                        if (text.charAt(0) == '=') {
-                            // TODO: change delimiters
+                        if (sanityCheckTag(text, line, start1, start2)) {
+                            accum = accum.addTagSegment(text, line);
                         } else {
-                            if (sanityCheckTag(text, line, start1, start2)) {
-                                accum = accum.addTagSegment(text, line);
-                            } else {
-                                text.setLength(0);
-                            }
-                            skipNewline = accum.skipNewline();
-                            skippedExtraBracket = false;
+                            text.setLength(0);
                         }
+                        skipNewline = accum.skipNewline();
+                        skippedExtraBracket = false;
                         state = TEXT;
                     } else {
                         state = MATCHING_END;
@@ -172,17 +168,13 @@ public class Mustache
 
             case MATCHING_END:
                 if (c == end2) {
-                    if (text.charAt(0) == '=') {
-                        // TODO: change delimiters
+                    if (sanityCheckTag(text, line, start1, start2)) {
+                        accum = accum.addTagSegment(text, line);
                     } else {
-                        if (sanityCheckTag(text, line, start1, start2)) {
-                            accum = accum.addTagSegment(text, line);
-                        } else {
-                            text.setLength(0);
-                        }
-                        skipNewline = accum.skipNewline();
-                        skippedExtraBracket = false;
+                        text.setLength(0);
                     }
+                    skipNewline = accum.skipNewline();
+                    skippedExtraBracket = false;
                     state = TEXT;
                 } else {
                     text.append(end1);
@@ -420,7 +412,7 @@ public class Mustache
         @Override public void execute (Template tmpl, Template.Context ctx, Writer out)  {
             Object value = tmpl.getValue(ctx, _name, _line);
             if (value == null) {
-                return; // TODO: configurable behavior on missing values
+                return;
             }
             if (value instanceof Iterable<?>) {
                 value = ((Iterable<?>)value).iterator();
@@ -462,7 +454,7 @@ public class Mustache
         @Override public void execute (Template tmpl, Template.Context ctx, Writer out)  {
             Object value = tmpl.getValue(ctx, _name, _line);
             if (value == null) {
-                executeSegs(tmpl, ctx, out); // TODO: configurable behavior on missing values
+                executeSegs(tmpl, ctx, out);
             }
             if (value instanceof Iterable<?>) {
                 Iterable<?> iable = (Iterable<?>)value;

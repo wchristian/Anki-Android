@@ -241,7 +241,6 @@ public class Storage {
                 }
             }
             for (JSONObject r : rem) {
-                // TODO: write remtemplate
                 col.getModels().remTemplate(m, r);
             }
             JSONArray newArray = new JSONArray();

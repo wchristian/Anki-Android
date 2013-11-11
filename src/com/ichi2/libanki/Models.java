@@ -164,7 +164,6 @@ public class Models {
             try {
                 m.put("mod", Utils.intNow());
                 m.put("usn", mCol.usn());
-                // TODO: fix empty id problem on _updaterequired (needed for model adding)
                 if (m.getLong("id") != 0) {
                     _updateRequired(m);
                 }

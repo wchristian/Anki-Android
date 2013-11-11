@@ -714,9 +714,6 @@ public class CardEditor extends Activity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        // TODO
-        // Log.i(AnkiDroidApp.TAG, "onSaveInstanceState: " + path);
-        // outState.putString("deckFilename", path);
         outState.putBoolean("addFact", mAddNote);
         outState.putInt("caller", mCaller);
         Log.i(AnkiDroidApp.TAG, "onSaveInstanceState - Ending");
@@ -1026,7 +1023,6 @@ public class CardEditor extends Activity {
                         if (mCurrentDid != newId) {
                             if (mAddNote) {
                                 try {
-                                    // TODO: mEditorNote.setDid(newId);
                                     mEditorNote.model().put("did", newId);
                                     mCol.getModels().setChanged();
                                 } catch (JSONException e) {
@@ -1383,7 +1379,6 @@ public class CardEditor extends Activity {
     private boolean duplicateCheck(boolean checkEmptyToo) {
         FieldEditText field = mEditFields.get(0);
         if (mEditorNote.dupeOrEmpty(field.getText().toString()) > (checkEmptyToo ? 0 : 1)) {
-            // TODO: theme backgrounds
             field.setBackgroundResource(R.drawable.white_edit_text_dupe);
             mSave.setEnabled(false);
             return true;

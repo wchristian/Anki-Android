@@ -589,7 +589,6 @@ public class DeckPicker extends FragmentActivity {
 
                     @Override
                     public void onCancel(DialogInterface arg0) {
-                        // TODO: close dbs?
                         DeckTask.cancelTask();
                         finishWithAnimation();
                     }
@@ -686,8 +685,6 @@ public class DeckPicker extends FragmentActivity {
                     ActivityTransitionAnimation.slide(DeckPicker.this, ActivityTransitionAnimation.DOWN);
                 }
                 // }
-            } else {
-                // TODO: db error handling
             }
         }
 
@@ -2631,7 +2628,6 @@ public class DeckPicker extends FragmentActivity {
                 (resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_CANCELED)) {
             loadCounts();
         } else if (requestCode == ADD_CRAM_DECK) {
-            // TODO: check, if ok has been clicked
             loadCounts();
         } else if (requestCode == REPORT_ERROR) {
             showStartupScreensAndDialogs(AnkiDroidApp.getSharedPrefs(getBaseContext()), 4);

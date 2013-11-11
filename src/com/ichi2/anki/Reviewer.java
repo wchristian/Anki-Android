@@ -13,7 +13,6 @@
  * You should have received a copy of the GNU General Public License along with         *
  * this program.  If not, see <http://www.gnu.org/licenses/>.                           *
  ****************************************************************************************/
-// TODO: implement own menu? http://www.codeproject.com/Articles/173121/Android-Menus-My-Way
 
 package com.ichi2.anki;
 
@@ -728,7 +727,6 @@ public class Reviewer extends AnkiActivity {
             // }
 
             if (mSched == null) {
-                // TODO: proper testing for restored activity
                 finish();
                 return;
             }

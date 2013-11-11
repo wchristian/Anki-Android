@@ -42,7 +42,6 @@ public class ArabicUtilities {
 	// - harakates (taken from ArabicReshaper for now, to be validated...)
 	// - isolated alif (\u0627)
 	// - others?
-    // TODO factoriser
     private static final Pattern patternBreakingWebView = Pattern.compile(
     	"[" +
 		"\\u0627" +

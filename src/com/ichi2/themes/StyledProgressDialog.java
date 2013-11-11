@@ -148,20 +148,4 @@ public class StyledProgressDialog extends Dialog {
         ((TextView) main.findViewById(R.id.message)).setText(message);
         ((View) main.findViewById(R.id.contentPanel)).setVisibility(View.VISIBLE);
     }
-
-
-    public void setMax(int max) {
-        // TODO
-    }
-
-
-    public void setProgress(int progress) {
-        // TODO
-    }
-
-
-    public void setProgressStyle(int style) {
-        // TODO
-    }
-
 }

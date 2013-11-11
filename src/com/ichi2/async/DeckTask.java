@@ -381,7 +381,6 @@ public class DeckTask extends BaseAsyncTask<DeckTask.TaskData, DeckTask.TaskData
         try {
             col.getDb().getDatabase().beginTransaction();
             try {
-                // TODO: undo integration
                 editNote.flush();
                 // flush card too, in case, did has been changed
                 editCard.flush();
@@ -671,12 +670,9 @@ public class DeckTask extends BaseAsyncTask<DeckTask.TaskData, DeckTask.TaskData
                     col.getSched().decrementCounts(newCard);
                     sHadCardQueue = true;
                 } else {
-                    // TODO: do not fetch new card if a non review operation has
-                    // been undone
                     col.reset();
                     newCard = getCard(sched);
                 }
-                // TODO: handle leech undoing properly
                 publishProgress(new TaskData(newCard, 0));
                 col.getDb().getDatabase().setTransactionSuccessful();
             } finally {
@@ -1145,23 +1141,6 @@ public class DeckTask extends BaseAsyncTask<DeckTask.TaskData, DeckTask.TaskData
                 col.remCards(col.getDecks().cids(did));
             }
             JSONObject model = col.getModels().byName(title);
-            // TODO: check, if model is valid or delete and recreate it
-            // TODO: deactivated at the moment as if forces a schema change
-            // create model (remove old ones first)
-            // while (model != null) {
-            // JSONObject m = col.getModels().byName(title);
-            // // rename old tutorial model if there are some non tutorial cards
-            // in it
-            // if
-            // (col.getDb().queryScalar("SELECT id FROM cards WHERE nid IN (SELECT id FROM notes WHERE mid = "
-            // +
-            // m.getLong("id") + ")", false) == 0) {
-            // col.getModels().rem(m);
-            // } else {
-            // m.put("name", title + " (renamed)");
-            // col.getModels().save(m);
-            // }
-            // }
             if (model == null) {
                 model = col.getModels().addBasicModel(col, title);
             }

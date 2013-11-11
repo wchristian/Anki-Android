@@ -102,16 +102,6 @@ public class Sound {
             contentLeft = contentLeft.substring(markerStart + soundMarker.length());
             Log.i(AnkiDroidApp.TAG, "Content left = " + contentLeft);
         }
-        // TODO: readd tts
-//        if (!soundAvailable && ttsEnabled && !ReadText.getLanguage(qa).equals(ReadText.NO_TTS)) {
-//            stringBuilder.append(content.substring(0, content.length() - 9));
-//            stringBuilder
-//                    .append("<a onclick=\"window.ankidroid.playSound(this.title);\" title=\"tts"
-//                            + Integer.toString(qa)
-//                            + Utils.stripHTML(content)
-//                            + "\"><span style=\"padding:5px;display:inline-block;vertical-align:middle\"><img src=\"file:///android_asset/media_playback_start2.png\" /></span></a>");
-//            contentLeft = "</p>";
-//        }
 
         stringBuilder.append(contentLeft);
 
@@ -136,31 +126,25 @@ public class Sound {
     public static void playSound(String soundPath, OnCompletionListener playAllListener) {
         Log.i(AnkiDroidApp.TAG, "Playing " + soundPath + " has listener? " + Boolean.toString(playAllListener != null));
 
-        if (soundPath.substring(0, 3).equals("tts")) {
-        	// TODO: give information about did
-//            ReadText.textToSpeech(soundPath.substring(4, soundPath.length()),
-//                    Integer.parseInt(soundPath.substring(3, 4)));
-        } else {
-            if (sMediaPlayer == null)
-                sMediaPlayer = new MediaPlayer();
-            else
-                sMediaPlayer.reset();
+        if (sMediaPlayer == null)
+            sMediaPlayer = new MediaPlayer();
+        else
+            sMediaPlayer.reset();
 
-            try {
-                // soundPath is usually an URI, but Media player requires a path not url encoded
-                URI soundURI = new URI(soundPath);
-                soundPath = new File(soundURI).getAbsolutePath();
-                sMediaPlayer.setDataSource(soundPath);
-                sMediaPlayer.setVolume(AudioManager.STREAM_MUSIC, AudioManager.STREAM_MUSIC);
-                sMediaPlayer.prepare();
-                if (playAllListener != null)
-                    sMediaPlayer.setOnCompletionListener(playAllListener);
+        try {
+            // soundPath is usually an URI, but Media player requires a path not url encoded
+            URI soundURI = new URI(soundPath);
+            soundPath = new File(soundURI).getAbsolutePath();
+            sMediaPlayer.setDataSource(soundPath);
+            sMediaPlayer.setVolume(AudioManager.STREAM_MUSIC, AudioManager.STREAM_MUSIC);
+            sMediaPlayer.prepare();
+            if (playAllListener != null)
+                sMediaPlayer.setOnCompletionListener(playAllListener);
 
-                sMediaPlayer.start();
-            } catch (Exception e) {
-                Log.e(AnkiDroidApp.TAG, "playSounds - Error reproducing sound " + soundPath + " = " + e.getMessage());
-                releaseSound();
-            }
+            sMediaPlayer.start();
+        } catch (Exception e) {
+            Log.e(AnkiDroidApp.TAG, "playSounds - Error reproducing sound " + soundPath + " = " + e.getMessage());
+            releaseSound();
         }
     }
 

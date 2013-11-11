@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
  * onto another text, allowing for errors.
  * 
  * @author fraser@google.com (Neil Fraser) Class containing the diff, match and patch methods. Also contains the
- *         behaviour settings. TODO if possible, remove the merging code, unneeded.
+ *         behaviour settings.
  */
 public class DiffEngine {
 

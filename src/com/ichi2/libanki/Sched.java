@@ -243,20 +243,6 @@ public class Sched {
     }
 
 
-    /**
-     * Return counts over next DAYS. Includes today.
-     */
-    public int dueForecast() {
-        return dueForecast(7);
-    }
-
-
-    public int dueForecast(int days) {
-        // TODO:...
-        return 0;
-    }
-
-
     public int countIdx(Card card) {
         if (card.getQueue() == 3) {
             return 1;
@@ -981,7 +967,6 @@ public class Sched {
                 // not collapsed; add some randomness
                 delay *= (1 + (new Random().nextInt(25) / 100));
             }
-            // TODO: check, if type for second due is correct
             card.setDue((int) (Utils.now() + delay));
             
             // due today?

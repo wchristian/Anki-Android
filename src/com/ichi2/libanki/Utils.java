@@ -81,9 +81,6 @@ import java.util.zip.Deflater;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-/**
- * TODO comments
- */
 public class Utils {
     enum SqlCommandType { SQL_INS, SQL_UPD, SQL_DEL };
 
@@ -298,12 +295,6 @@ public class Utils {
     public static String stripHTMLMedia(String s) {
         Matcher imgMatcher = imgPattern.matcher(s);
         return stripHTML(imgMatcher.replaceAll(" $1 "));
-    }
-
-
-    private String minimizeHTML(String s) {
-    	// TODO
-    	return s;
     }
 
 

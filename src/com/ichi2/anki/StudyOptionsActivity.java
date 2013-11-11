@@ -96,7 +96,6 @@ public class StudyOptionsActivity extends FragmentActivity {
         getSupportFragmentManager().beginTransaction().add(android.R.id.content, mCurrentFragment).commit();
     }
 
-    // TODO: onpause, onresume, onstop
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

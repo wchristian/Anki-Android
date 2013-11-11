@@ -86,7 +86,6 @@ public abstract class XYChart extends AbstractChart {
     mRenderer = renderer;
   }
 
-  // TODO: javadoc
   protected void setDatasetRenderer(XYMultipleSeriesDataset dataset,
       XYMultipleSeriesRenderer renderer) {
     mDataset = dataset;
@@ -731,7 +730,6 @@ public abstract class XYChart extends AbstractChart {
     }
   }
 
-  // TODO: docs
   public XYMultipleSeriesRenderer getRenderer() {
     return mRenderer;
   }

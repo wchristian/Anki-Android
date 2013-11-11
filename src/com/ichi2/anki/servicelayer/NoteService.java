@@ -66,7 +66,6 @@ public class NoteService {
                 return note;
             }
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -91,7 +90,6 @@ public class NoteService {
                 mmNote.setField(i, field);
             }
             mmNote.setModelId(editorNoteSrc.getMid());
-            // TODO: set current id of the note as well
         }
     }
 

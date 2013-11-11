@@ -315,8 +315,6 @@ public class DownloadManagerService extends Service {
                 new DownloadSharedDeckTask().execute(sharedDeckDownload);
             }
         } else {
-            // TODO: Check if there is already a deck with the same name, and if that's so
-            // add the current milliseconds to the end of the name or notify the user
             new DownloadPersonalDeckTask().execute(download);
         }
     }
@@ -1068,7 +1066,6 @@ public class DownloadManagerService extends Service {
             Log.i(AnkiDroidApp.TAG, "Finished deck " + download.getFilename() + " " + result.success);
             if (result.success) {
                 // Put updated cards to 0
-                // TODO: Why do we need to zero the updated cards?
                 editor.putLong("numUpdatedCards:" + mDestination + "/tmp/" + download.getFilename() + ".anki.updating",
                         0);
                 editor.commit();

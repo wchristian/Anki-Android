@@ -17,7 +17,6 @@ package com.ichi2.anki.services;
 import com.ichi2.anki.AnkiDroidApp;
 import com.ichi2.anki.DeckPicker;
 import com.ichi2.anki.R;
-import com.ichi2.anki.StudyOptionsFragment;
 import com.ichi2.widget.WidgetStatus;
 
 import android.app.Notification;

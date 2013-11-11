@@ -22,14 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-import org.json.JSONObject;
-
-import com.ichi2.libanki.Sched;
 import com.ichi2.themes.StyledDialog;
 
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
-import android.speech.tts.UtteranceProgressListener;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;

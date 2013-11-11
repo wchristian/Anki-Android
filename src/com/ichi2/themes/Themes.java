@@ -16,10 +16,6 @@
 
 package com.ichi2.themes;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import com.ichi2.anki.AnkiDroidApp;
 import com.ichi2.anki.R;
 

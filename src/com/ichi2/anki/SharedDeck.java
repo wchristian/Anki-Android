@@ -14,8 +14,6 @@
 
 package com.ichi2.anki;
 
-import com.ichi2.anki.R;
-
 import java.util.HashMap;
 
 public class SharedDeck extends HashMap<String, Object> {

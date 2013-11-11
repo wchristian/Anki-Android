@@ -3,7 +3,6 @@ package com.ichi2.anki;
 
 import com.ichi2.anki.R;
 
-import com.ichi2.libanki.Card;
 import com.ichi2.libanki.Utils;
 import com.ichi2.themes.StyledDialog;
 

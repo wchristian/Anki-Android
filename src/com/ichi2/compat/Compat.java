@@ -16,9 +16,6 @@
 
 package com.ichi2.compat;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.speech.tts.TextToSpeech;
 import android.view.View;

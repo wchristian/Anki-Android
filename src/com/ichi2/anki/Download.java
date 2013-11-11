@@ -14,7 +14,6 @@
 
 package com.ichi2.anki;
 
-import com.ichi2.anki.R;
 import com.ichi2.libanki.Utils;
 
 import android.os.Parcel;

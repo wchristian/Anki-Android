@@ -8,7 +8,6 @@ import android.view.MenuItem;
 
 import com.ichi2.async.DeckTask;
 import com.ichi2.async.DeckTask.TaskData;
-import com.ichi2.libanki.Collection;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

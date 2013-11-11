@@ -1,8 +1,5 @@
 package com.ichi2.compat;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 import com.ichi2.anki.ReadText;
 
 import android.annotation.TargetApi;

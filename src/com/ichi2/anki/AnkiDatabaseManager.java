@@ -15,7 +15,6 @@
 package com.ichi2.anki;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class AnkiDatabaseManager {
 

@@ -169,6 +169,8 @@ public class ChartBuilder extends Activity {
         } else {
             finish();
         }
+        int type = 0;//((Integer) mMeta[0]).intValue();
+        Log.i(AnkiDroidApp.TAG, Integer.toString((Integer) mMeta[0]));
         String title = res.getString((Integer) mMeta[1]);
         boolean backwards = (Boolean) mMeta[2];
         int[] valueLabels = (int[]) mMeta[3];
@@ -212,10 +214,19 @@ public class ChartBuilder extends Activity {
             if (mSeriesList.length == 1) {
                 mRenderer.setShowLegend(false);
             }
+            double num = mSeriesList[0][mSeriesList[0].length - 1];
+            switch (type) {
+                case Stats.TYPE_MONTH:
+                    num = 31;
+                    break;
+                case Stats.TYPE_YEAR:
+                    num = 52;
+                    break;
+            }
             if (backwards) {
-                mPan = new double[] { mSeriesList[0][0] - 0.5, 0.5 };
+                mPan = new double[] { 0 - num - 0.5, 0.5 };
             } else {
-                mPan = new double[] { -0.5, mSeriesList[0][mSeriesList[0].length - 1] + 0.5 };
+                mPan = new double[] { -0.5, num + 0.5 };
             }
             mRenderer.setLegendTextSize(17);
             mRenderer.setBarSpacing(0.4);
@@ -224,6 +235,8 @@ public class ChartBuilder extends Activity {
             mRenderer.setLabelsTextSize(17);
             mRenderer.setXAxisMin(mPan[0]);
             mRenderer.setXAxisMax(mPan[1]);
+            Log.i(AnkiDroidApp.TAG, mPan[0] + " " + mPan[1]);
+            
             mRenderer.setYAxisMin(0);
             mRenderer.setGridColor(Color.LTGRAY);
             mRenderer.setShowGrid(true);

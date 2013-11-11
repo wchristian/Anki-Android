@@ -25,6 +25,7 @@ import com.ichi2.anki.AnkiDroidApp;
 import com.ichi2.anki.R;
 
 import android.database.Cursor;
+import android.util.Log;
 
 /**
  * Deck statistics.
@@ -91,6 +92,7 @@ public class Stats {
      */
     public boolean calculateDue(int type) {
         mType = type;
+        Log.i(AnkiDroidApp.TAG, Integer.toString(type));
         mBackwards = false;
         mTitle = R.string.stats_forecast;
         mValueLabels = new int[] { R.string.statistics_young, R.string.statistics_mature };
@@ -114,23 +116,21 @@ public class Stats {
         }
         String lim = "";// AND due - " + mCol.getSched().getToday() + " >= " + start; // leave this out in order to show
                         // card too which were due the days before
-        if (end != -1) {
-            lim += " AND day <= " + end;
-        }
+        //if (end != -1) {
+        //    lim += " AND day <= " + end;
+        //}
 
         ArrayList<int[]> dues = new ArrayList<int[]>();
         Cursor cur = null;
         try {
-            cur = mCol
-                    .getDb()
-                    .getDatabase()
-                    .rawQuery(
-                            "SELECT (due - " + mCol.getSched().getToday() + ")/" + chunk
-                                    + " AS day, " // day
-                                    + "count(), " // all cards
-                                    + "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) " // mature cards
-                                    + "FROM cards WHERE did IN " + _limit() + " AND queue IN (2,3)" + lim
-                                    + " GROUP BY day ORDER BY day", null);
+            String query = "SELECT (due - " + mCol.getSched().getToday() + ")/" + chunk
+                    + " AS day, " // day
+                    + "count(), " // all cards
+                    + "sum(CASE WHEN ivl >= 21 THEN 1 ELSE 0 END) " // mature cards
+                    + "FROM cards WHERE did IN " + _limit() + " AND queue IN (2,3)" + lim
+                    + " GROUP BY day ORDER BY day";
+            Log.i(AnkiDroidApp.TAG, query);
+            cur = mCol.getDb().getDatabase().rawQuery(query, null);
             while (cur.moveToNext()) {
                 dues.add(new int[] { cur.getInt(0), cur.getInt(1), cur.getInt(2) });
             }
@@ -211,6 +211,7 @@ public class Stats {
 
     public boolean calculateDone(int type, boolean reps) {
         mType = type;
+        Log.i(AnkiDroidApp.TAG, Integer.toString(type));
         mBackwards = true;
         if (reps) {
             mTitle = R.string.stats_review_count;
@@ -239,9 +240,9 @@ public class Stats {
                 break;
         }
         ArrayList<String> lims = new ArrayList<String>();
-        if (num != -1) {
-            lims.add("id > " + ((mCol.getSched().getDayCutoff() - ((num + 1) * chunk * 86400)) * 1000));
-        }
+//        if (num != -1) {
+//            lims.add("id > " + ((mCol.getSched().getDayCutoff() - ((num + 1) * chunk * 86400)) * 1000));
+//        }
         String lim = _revlogLimit().replaceAll("[\\[\\]]", "");
         if (lim.length() > 0) {
             lims.add(lim);
@@ -273,21 +274,19 @@ public class Stats {
         ArrayList<double[]> list = new ArrayList<double[]>();
         Cursor cur = null;
         try {
-            cur = mCol
-                    .getDb()
-                    .getDatabase()
-                    .rawQuery(
-                            "SELECT (cast((id/1000 - " + mCol.getSched().getDayCutoff() + ") / 86400.0 AS INT))/"
-                                    + chunk + " AS day, " + "sum(CASE WHEN type = 0 THEN " + ti + " ELSE 0 END)"
-                                    + tf
-                                    + ", " // lrn
-                                    + "sum(CASE WHEN type = 1 AND lastIvl < 21 THEN " + ti + " ELSE 0 END)" + tf
-                                    + ", " // yng
-                                    + "sum(CASE WHEN type = 1 AND lastIvl >= 21 THEN " + ti + " ELSE 0 END)" + tf
-                                    + ", " // mtr
-                                    + "sum(CASE WHEN type = 2 THEN " + ti + " ELSE 0 END)" + tf + ", " // lapse
-                                    + "sum(CASE WHEN type = 3 THEN " + ti + " ELSE 0 END)" + tf // cram
-                                    + " FROM revlog " + lim + " GROUP BY day ORDER BY day", null);
+            String query = 
+                    "SELECT (cast((id/1000 - " + mCol.getSched().getDayCutoff() + ") / 86400.0 AS INT))/"
+                            + chunk + " AS day, " + "sum(CASE WHEN type = 0 THEN " + ti + " ELSE 0 END)"
+                            + tf
+                            + ", " // lrn
+                            + "sum(CASE WHEN type = 1 AND lastIvl < 21 THEN " + ti + " ELSE 0 END)" + tf
+                            + ", " // yng
+                            + "sum(CASE WHEN type = 1 AND lastIvl >= 21 THEN " + ti + " ELSE 0 END)" + tf
+                            + ", " // mtr
+                            + "sum(CASE WHEN type = 2 THEN " + ti + " ELSE 0 END)" + tf + ", " // lapse
+                            + "sum(CASE WHEN type = 3 THEN " + ti + " ELSE 0 END)" + tf // cram
+                            + " FROM revlog " + lim + " GROUP BY day ORDER BY day";
+            cur = mCol.getDb().getDatabase().rawQuery(query, null);
             while (cur.moveToNext()) {
                 list.add(new double[] { cur.getDouble(0), cur.getDouble(1), cur.getDouble(4), cur.getDouble(2),
                         cur.getDouble(3), cur.getDouble(5) });

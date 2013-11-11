@@ -64,17 +64,6 @@ public class AnkiDatabaseManager {
 
 
     /**
-     * Close connections to all opened databases. XXX Currently unused.
-     */
-    public static void closeAllDatabases() {
-        Set<String> databases = sAnkiDatabases.keySet();
-        for (String pathDB : databases) {
-            AnkiDatabaseManager.closeDatabase(pathDB);
-        }
-    }
-
-
-    /**
      * Check if there is a valid connection to the given database.
      * 
      * @param pathDB the path to the database we want to check.

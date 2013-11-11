@@ -181,12 +181,6 @@ public class Whiteboard extends View {
     }
 
 
-    // XXX: Unused
-    // If we don't need to lock the whiteboard, then we should remove mLocked too
-    // public void lock() {
-    // mLocked = true;
-    // }
-
     private void createBitmap(int w, int h, Bitmap.Config conf) {
         mBitmap = Bitmap.createBitmap(w, h, conf);
         mCanvas = new Canvas(mBitmap);

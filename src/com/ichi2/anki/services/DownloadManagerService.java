@@ -1041,7 +1041,6 @@ public class DownloadManagerService extends Service {
                 data.exception = e;
                 return data;
             } catch (CursorIndexOutOfBoundsException e) {
-                // XXX: Where is this exception thrown?
                 Log.i(AnkiDroidApp.TAG, "The deck has no cards = " + e.getMessage());
                 data.success = false;
                 // data.returnType = DeckTask.DECK_EMPTY;

@@ -124,29 +124,24 @@ public class Media {
         // media directory
         mDir = col.getPath().replaceFirst("\\.anki2$", ".media");
         File fd = new File(mDir);
-        if (!fd.exists()) {
-            if (!fd.mkdir()) {
-                Timber.e("Cannot create media directory: " + mDir);
-            }
-        }
+        if (!fd.exists() && !fd.mkdir())
+            Timber.e("Cannot create media directory: " + mDir);
         // change database
         connect();
     }
 
 
     public void connect() {
-        if (mCol.getServer()) {
+        if (mCol.getServer())
             return;
-        }
         // NOTE: We use a custom prefix for AnkiDroid to avoid issues caused by copying
         // the db to the desktop or vice versa.
         String path = dir() + ".ad.db2";
         File dbFile = new File(path);
         boolean create = !(dbFile.exists());
         mDb = AnkiDatabaseManager.getDatabase(path);
-        if (create) {
+        if (create)
             _initDB();
-        }
         maybeUpgrade();
     }
 
@@ -167,39 +162,38 @@ public class Media {
     private void maybeUpgrade() {
         String oldpath = dir() + ".db";
         File oldDbFile = new File(oldpath);
-        if (oldDbFile.exists()) {
-            mDb.execute(String.format(Locale.US, "attach \"%s\" as old", oldpath));
-            try {
-                String sql = "insert into media\n" +
-                        " select m.fname, csum, mod, ifnull((select 1 from log l2 where l2.fname=m.fname), 0) as dirty\n" +
-                        " from old.media m\n" +
-                        " left outer join old.log l using (fname)\n" +
-                        " union\n" +
-                        " select fname, null, 0, 1 from old.log where type=1;";
-                mDb.execute(sql);
-                mDb.execute("delete from meta");
-                mDb.execute("insert into meta select dirMod, usn from old.meta");
-                mDb.commit();
-            } catch (Exception e) {
-                // if we couldn't import the old db for some reason, just start anew
-                StringWriter sw = new StringWriter();
-                e.printStackTrace(new PrintWriter(sw));
-                mCol.log("failed to import old media db:" + sw.toString());
-            }
-            mDb.execute("detach old");
-            File newDbFile = new File(oldpath + ".old");
-            if (newDbFile.exists()) {
-                newDbFile.delete();
-            }
-            oldDbFile.renameTo(newDbFile);
+        if (!oldDbFile.exists())
+            return;
+
+        mDb.execute(String.format(Locale.US, "attach \"%s\" as old", oldpath));
+        try {
+            String sql = "insert into media\n" +
+                    " select m.fname, csum, mod, ifnull((select 1 from log l2 where l2.fname=m.fname), 0) as dirty\n" +
+                    " from old.media m\n" +
+                    " left outer join old.log l using (fname)\n" +
+                    " union\n" +
+                    " select fname, null, 0, 1 from old.log where type=1;";
+            mDb.execute(sql);
+            mDb.execute("delete from meta");
+            mDb.execute("insert into meta select dirMod, usn from old.meta");
+            mDb.commit();
+        } catch (Exception e) {
+            // if we couldn't import the old db for some reason, just start anew
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            mCol.log("failed to import old media db:" + sw.toString());
         }
+        mDb.execute("detach old");
+        File newDbFile = new File(oldpath + ".old");
+        if (newDbFile.exists())
+            newDbFile.delete();
+        oldDbFile.renameTo(newDbFile);
     }
 
 
     public void close() {
-        if (mCol.getServer()) {
+        if (mCol.getServer())
             return;
-        }
         AnkiDatabaseManager.closeDatabase(mDb.getPath());
         mDb = null;
     }
@@ -252,18 +246,11 @@ public class Media {
                 return fname;
             }
             // if it's identical, reuse
-            if (Utils.fileChecksum(path).equals(csum)) {
+            if (Utils.fileChecksum(path).equals(csum))
                 return fname;
-            }
             // otherwise, increment the index in the filename
-            Pattern reg = Pattern.compile(" \\((\\d+)\\)$");
-            Matcher m = reg.matcher(root);
-            if (!m.find()) {
-                root = root + " (1)";
-            } else {
-                int n = Integer.parseInt(m.group(1));
-                root = String.format(" (%d)", n + 1);
-            }
+            Matcher m = Pattern.compile(" \\((\\d+)\\)$").matcher(root);
+            root = m.find() ? String.format(" (%d)", Integer.parseInt(m.group(1)) + 1) : root + " (1)";
         }
     }
 
@@ -314,9 +301,8 @@ public class Media {
                 while (m.find()) {
                     String fname = m.group(fnameIdx);
                     boolean isLocal = !fRemotePattern.matcher(fname.toLowerCase(Locale.US)).find();
-                    if (isLocal || includeRemote) {
+                    if (isLocal || includeRemote)
                         l.add(fname);
-                    }
                 }
             }
         }
@@ -337,11 +323,7 @@ public class Media {
             StringBuffer buf = new StringBuffer();
             m = Pattern.compile(String.format(Locale.US, clozeReg, ord)).matcher(string);
             while (m.find()) {
-                if (!TextUtils.isEmpty(m.group(3))) {
-                    m.appendReplacement(buf, "[$3]");
-                } else {
-                    m.appendReplacement(buf, "[...]");
-                }
+                m.appendReplacement(buf, TextUtils.isEmpty(m.group(3)) ? "[...]" : "[$3]");
             }
             m.appendTail(buf);
             String s = buf.toString().replaceAll(String.format(Locale.US, clozeReg, ".+?"), "$1");
@@ -386,15 +368,9 @@ public class Media {
             while (m.find()) {
                 String tag = m.group(0);
                 String fname = m.group(fnameIdx);
-                if (fRemotePattern.matcher(fname).find()) {
-                    //dont't do any escaping if remote image
-                } else {
-                    if (unescape) {
-                        string = string.replace(tag, tag.replace(fname, Uri.decode(fname)));
-                    } else {
-                        string = string.replace(tag, tag.replace(fname, Uri.encode(fname)));
-                    }
-                }
+                // only escape local image
+                if (!fRemotePattern.matcher(fname).find())
+                    string = string.replace(tag, tag.replace(fname, unescape ? Uri.decode(fname) : Uri.encode(fname)));
             }
         }
         return string;
@@ -440,45 +416,25 @@ public class Media {
                 allRefs.addAll(noteRefs);
             }
         } finally {
-            if (cur != null) {
+            if (cur != null)
                 cur.close();
-            }
         }
         // loop through media folder
         List<String> unused = new ArrayList<>();
         List<String> invalid = new ArrayList<>();
-        File[] files;
-        if (local == null) {
-            files = mdir.listFiles();
-        } else {
-            files = local;
-        }
+        File[] files = local == null ? mdir.listFiles() : local;
         boolean renamedFiles = false;
         for (File file : files) {
-            if (local == null) {
-                if (file.isDirectory()) {
-                    // ignore directories
-                    continue;
-                }
-            }
-            if (file.getName().startsWith("_")) {
-                // leading _ says to ignore file
+            if ((local == null && file.isDirectory()) // ignore directories
+                    || (file.getName().startsWith("_"))) // leading _ says to ignore file
                 continue;
-            }
+
             File nfcFile = new File(dir(), CompatHelper.getCompat().nfcNormalized(file.getName()));
             // we enforce NFC fs encoding
-            if (local == null) {
-                if (!file.getName().equals(nfcFile.getName())) {
-                    // delete if we already have the NFC form, otherwise rename
-                    if (nfcFile.exists()) {
-                        file.delete();
-                        renamedFiles = true;
-                    } else {
-                        file.renameTo(nfcFile);
-                        renamedFiles = true;
-                    }
-                    file = nfcFile;
-                }
+            if (local == null && !file.getName().equals(nfcFile.getName())) {
+                _forceNF(nfcFile, file);
+                renamedFiles = true;
+                file = nfcFile;
             }
             // compare
             if (!allRefs.contains(nfcFile.getName())) {
@@ -489,20 +445,23 @@ public class Media {
         }
         // if we renamed any files to nfc format, we must rerun the check
         // to make sure the renamed files are not marked as unused
-        if (renamedFiles) {
-            return check(local);
-        }
+        if (renamedFiles)
+            return check(null);
         List<String> nohave = new ArrayList<>();
         for (String x : allRefs) {
-            if (!x.startsWith("_")) {
+            if (!x.startsWith("_"))
                 nohave.add(x);
-            }
         }
         List<List<String>> result = new ArrayList<>();
         result.add(nohave);
         result.add(unused);
         result.add(invalid);
         return result;
+    }
+
+    // delete if we already have the NFC form, otherwise rename
+    private boolean _forceNF(File nfFile, File file) {
+        return nfFile.exists() ? file.delete() : file.renameTo(nfFile);
     }
 
 
@@ -512,9 +471,8 @@ public class Media {
         for (int c = 0; c < flds.length; c++) {
             String fld = flds[c];
             String nfc = CompatHelper.getCompat().nfcNormalized(fld);
-            if (!nfc.equals(fld)) {
+            if (!nfc.equals(fld))
                 note.setField(c, nfc);
-            }
         }
         note.flush();
     }
@@ -535,14 +493,12 @@ public class Media {
      */
 
     public String stripIllegal(String str) {
-        Matcher m = fIllegalCharReg.matcher(str);
-        return m.replaceAll("");
+        return fIllegalCharReg.matcher(str).replaceAll("");
     }
 
 
     public boolean hasIllegal(String str) {
-        Matcher m = fIllegalCharReg.matcher(str);
-        return m.find();
+        return fIllegalCharReg.matcher(str).find();
     }
 
 
@@ -564,9 +520,8 @@ public class Media {
      *              directory mod times). Use this when rebuilding the media database.
      */
     public void findChanges(boolean force) throws APIVersionException {
-        if (force || _changed() != null) {
+        if (force || _changed() != null)
             _logChanges();
-        }
     }
 
 
@@ -583,8 +538,7 @@ public class Media {
      * @return The number of seconds (rounded down).
      */
     private long _mtime(String path) {
-        File f = new File(path);
-        return f.lastModified() / 1000;
+        return new File(path).lastModified() / 1000;
     }
 
 
@@ -603,10 +557,7 @@ public class Media {
     public Long _changed() {
         long mod = mDb.queryLongScalar("select dirMod from meta");
         long mtime = _mtime(dir());
-        if (mod != 0 && mod == mtime) {
-            return null;
-        }
-        return mtime;
+        return mod != 0 && mod == mtime ? null : mtime;
     }
 
 
@@ -644,26 +595,20 @@ public class Media {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            if (cur != null) {
+            if (cur != null)
                 cur.close();
-            }
         }
         List<String> added = new ArrayList<>();
         List<String> removed = new ArrayList<>();
         // loop through on-disk files
         for (File f : new File(dir()).listFiles()) {
             // ignore folders and thumbs.db
-            if (f.isDirectory()) {
+            if (f.isDirectory())
                 continue;
-            }
             String fname = f.getName();
-            if (fname.equalsIgnoreCase("thumbs.db")) {
-                continue;
-            }
             // and files with invalid chars
-            if (hasIllegal(fname)) {
+            if (fname.equalsIgnoreCase("thumbs.db") || hasIllegal(fname))
                 continue;
-            }
             // empty files are invalid; clean them up and continue
             long sz = f.length();
             if (sz == 0) {
@@ -679,32 +624,24 @@ public class Media {
             if (!fname.equals(normf)) {
                 // wrong filename encoding which will cause sync errors
                 File nf = new File(dir(), normf);
-                if (nf.exists()) {
-                    f.delete();
-                } else {
-                    f.renameTo(nf);
-                }
+                _forceNF(nf, f);
             }
             // newly added?
             if (!cache.containsKey(fname)) {
                 added.add(fname);
             } else {
-                // modified since last time?
-                if (_mtime(f.getAbsolutePath()) != (Long) cache.get(fname)[1]) {
-                    // and has different checksum?
-                    if (!_checksum(f.getAbsolutePath()).equals(cache.get(fname)[0])) {
-                        added.add(fname);
-                    }
-                }
+                // modified since last time and has different checksum?
+                if (_mtime(f.getAbsolutePath()) != (Long) cache.get(fname)[1]
+                        && !_checksum(f.getAbsolutePath()).equals(cache.get(fname)[0]))
+                    added.add(fname);
                 // mark as used
                 cache.get(fname)[2] = true;
             }
         }
         // look for any entries in the cache that no longer exist on disk
         for (String fname : cache.keySet()) {
-            if (!((Boolean) cache.get(fname)[2])) {
+            if (!((Boolean) cache.get(fname)[2]))
                 removed.add(fname);
-            }
         }
         return new Pair<>(added, removed);
     }
@@ -738,9 +675,8 @@ public class Media {
                 return new Pair<>(null, 0);
             }
         } finally {
-            if (cur != null) {
+            if (cur != null)
                 cur.close();
-            }
         }
     }
 
@@ -754,9 +690,8 @@ public class Media {
 
     public void syncDelete(String fname) {
         File f = new File(dir(), fname);
-        if (f.exists()) {
+        if (f.exists())
             f.delete();
-        }
         mDb.execute("delete from media where fname=?", new Object[]{fname});
     }
 
@@ -832,7 +767,7 @@ public class Media {
                         File file = new File(dir(), fname);
                         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file), 2048);
                         z.putNextEntry(new ZipEntry(Integer.toString(c)));
-                        int count = 0;
+                        int count;
                         while ((count = bis.read(buffer, 0, 2048)) != -1) {
                             z.write(buffer, 0, count);
                         }
@@ -849,9 +784,8 @@ public class Media {
                     mCol.log("-media zip " + fname);
                     meta.put(new JSONArray().put(normname).put(""));
                 }
-                if (sz >= Consts.SYNC_ZIP_SIZE) {
+                if (sz >= Consts.SYNC_ZIP_SIZE)
                     break;
-                }
             }
 
             z.putNextEntry(new ZipEntry("_meta"));
@@ -863,9 +797,8 @@ public class Media {
             Timber.e("Failed to create media changes zip", e);
             throw new RuntimeException(e);
         } finally {
-            if (cur != null) {
+            if (cur != null)
                 cur.close();
-            }
         }
     }
 
@@ -885,30 +818,25 @@ public class Media {
             int cnt = 0;
 
             for (ZipEntry i : Collections.list(z.entries())) {
-                if (i.getName().equals("_meta")) {
-                    // ignore previously-retrieved meta
+                if (i.getName().equals("_meta")) // ignore previously-retrieved meta
                     continue;
-                } else {
-                    String name = meta.getString(i.getName());
-                    // normalize name for platform
-                    name = CompatHelper.getCompat().nfcNormalized(name);
-                    // save file
-                    String destPath = dir().concat(File.separator).concat(name);
-                    Utils.writeToFile(z.getInputStream(i), destPath);
-                    String csum = Utils.fileChecksum(destPath);
-                    // update db
-                    media.add(new Object[]{name, csum, _mtime(destPath), 0});
-                    cnt += 1;
-                }
+
+                String name = meta.getString(i.getName());
+                // normalize name for platform
+                name = CompatHelper.getCompat().nfcNormalized(name);
+                // save file
+                String destPath = dir().concat(File.separator).concat(name);
+                Utils.writeToFile(z.getInputStream(i), destPath);
+                String csum = Utils.fileChecksum(destPath);
+                // update db
+                media.add(new Object[]{name, csum, _mtime(destPath), 0});
+                cnt += 1;
             }
             z.close();
-            if (media.size() > 0) {
+            if (media.size() > 0)
                 mDb.executeMany("insert or replace into media values (?,?,?,?)", media);
-            }
             return cnt;
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -934,8 +862,7 @@ public class Media {
      * function and have delegated its job to the caller of this class.
      */
     public static int indexOfFname(Pattern p) {
-        int fnameIdx = p == fSoundRegexps ? 2 : p == fImgRegExpU ? 2 : 3;
-        return fnameIdx;
+        return p == fSoundRegexps ? 2 : p == fImgRegExpU ? 2 : 3;
     }
 
 
@@ -956,12 +883,10 @@ public class Media {
      */
     public void removeFile(String fname) {
         File f = new File(dir(), fname);
-        if (f.exists()) {
+        if (f.exists())
             f.delete();
-        }
         Timber.d("Marking media file removal in media db: %s", fname);
-        mDb.execute("insert or replace into media values (?,?,?,?)",
-                new Object[]{fname, null, 0, 1});
+        mDb.execute("insert or replace into media values (?,?,?,?)", new Object[]{fname, null, 0, 1});
     }
 
 
@@ -969,11 +894,6 @@ public class Media {
      * @return True if the media db has not been populated yet.
      */
     public boolean needScan() {
-        long mod = mDb.queryLongScalar("select dirMod from meta");
-        if (mod == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return mDb.queryLongScalar("select dirMod from meta") == 0;
     }
 }
